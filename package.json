@@ -1,5 +1,5 @@
 {
-    "version"         : "1.0.0",
+    "version"         : "1.0.1",
     "author"          : "Joaquín Fernández",
     "name"            : "jf-data-types",
     "description"     : "Base classes for handling data types using OOP.",
@@ -20,7 +20,8 @@
         "url"  : "https://github.com/joaquinfq/jfDataTypes"
     },
     "dependencies"    : {
-        "format-decimal" : "^0.1.0"
+        "format-decimal" : "^0.1.0",
+        "jf-factory" : "^1.0.0"
     },
     "devDependencies" : {
         "babel-core"                              : "^6.26.0",

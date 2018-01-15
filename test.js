@@ -31,7 +31,7 @@ function pad(value)
 
 function testClass(Class, value, valueOf, toJSON, toString)
 {
-    const _instance = jfDataTypes.Base.factory(Class, value);
+    const _instance = jfDataTypes.Base.create(Class, value);
     testValue(_instance.valueOf(), valueOf, `${Class} (valueOf)`);
     testValue(_instance.toJSON(), toJSON, `${Class} (toJSON)`);
     testValue(_instance.toString(), toString, `${Class} (toString)`);
@@ -196,52 +196,77 @@ function testNull()
 //------------------------------------------------------------------------------
 function testObject()
 {
-    const _config = {
-        amount : 123.45,
-        name   : 'TestObjectConfig'
+    // Configuramos algunas propiedades como textos y otras como referencias
+    // para verificar que ambas definiciones funcionan
+    const _propertyTypes = {
+        boolean : 'Boolean',
+        float   : 'Float',
+        integer : 'Integer',
+        money   : jfDataTypes.Money,
+        string  : jfDataTypes.String
     };
-    const _object = jfDataTypes.Base.factory(
-        class TestObject extends jfDataTypes.Object
+    const _config = {
+        boolean : true,
+        float   : 987654.21,
+        integer : 123456789,
+        money   : 123.45,
+        string  : 'TestObjectConfig'
+    };
+    const _properties = Object.keys(_propertyTypes);
+    jfDataTypes.Base.register(
+        'TestObject',
+        class extends jfDataTypes.Object
         {
             constructor()
             {
                 super();
-                this.amount = null;
-                this.name = null;
-                this.$propertyTypes = {
-                    amount : jfDataTypes.Money,
-                    name   : jfDataTypes.String
+                this.$propertyTypes = _propertyTypes;
+                for (const _property of _properties)
+                {
+                    this[_property] = null;
                 }
             }
         }
     );
-    testValue(_object.amount, null, 'Object::amount');
-    testValue(_object.name, null, 'Object::name');
+    //
+    const _object = jfDataTypes.Base.create('TestObject');
+    // Verificamos que al crearse las propiedades existan y sean `null`.
+    for (const _property of Object.keys(_propertyTypes))
+    {
+        testValue(_object[_property], null, `Object::${_property} 1`);
+    }
     //------------------------------------------------------------------------------
     // Verificamos la asignación de una propiedad solamente sin que afecte al resto
-    // Propiedad: amount
     //------------------------------------------------------------------------------
-    _object.setValue(
+    const _assigned = [];
+    for (const _property of [...Object.keys(_config), ''])
+    {
+        // Verificamos que los valores ya asignados retengan su valor.
+        for (const _oldProperty of _assigned)
         {
-            amount : _config.amount
+            let _type = _propertyTypes[_oldProperty];
+            if (typeof _type === 'string')
+            {
+                _type = jfDataTypes[_type];
+            }
+            testValue(_object[_oldProperty] instanceof _type, true, `Object::${_oldProperty} 2`);
+            testValue(_object[_oldProperty].value, _config[_oldProperty], `Object::${_oldProperty} 3`);
         }
-    );
-    testValue(_object.amount instanceof jfDataTypes.Money, true, 'Object::amount');
-    testValue(_object.amount.value, _config.amount, 'Object::amount');
-    testValue(_object.name, null, 'Object::name');
-    //------------------------------------------------------------------------------
-    // Verificamos la asignación de una propiedad solamente sin que afecte al resto
-    // Propiedad: name
-    //------------------------------------------------------------------------------
-    _object.setValue(
+        if (_property)
         {
-            name : _config.name
+            _object.setValue(
+                {
+                    [_property] : _config[_property]
+                }
+            );
+            // Verificamos que el valor se haya asignado correctamente.
+            testValue(_object[_property].value, _config[_property], `Object::${_property} 4`);
+            _assigned.push(_property);
         }
-    );
-    testValue(_object.amount instanceof jfDataTypes.Money, true, 'Object::amount');
-    testValue(_object.amount.value, _config.amount, 'Object::amount');
-    testValue(_object.name instanceof jfDataTypes.String, true, 'Object::name');
-    testValue(_object.name.value, _config.name, 'Object::name');
+    }
+    //------------------------------------------------------------------------------
+    // Verificamos que se devuelva el objeto con los valores originales.
+    //------------------------------------------------------------------------------
     assert.deepStrictEqual(_object.toJSON(), _config, 'Object::toJSON');
     ++numAssertions;
 }
@@ -269,7 +294,7 @@ function testValidators()
         return value === _value;
     };
     const _fail            = () => false;
-    const _string          = jfDataTypes.Base.factory(
+    const _string          = jfDataTypes.Base.create(
         'String',
         {
             value      : null,

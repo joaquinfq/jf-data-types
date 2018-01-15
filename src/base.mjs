@@ -1,10 +1,12 @@
-/**
- * Almacena los diferentes tipos de campos soportados por la bibliteca.
- *
- * @type {Object}
- */
-const fieldTypes = {};
+import jfFactory from 'jf-factory';
 
+/**
+ * Factoría para los tipos de datos.
+ *
+ * @type {Factory}
+ */
+const factory = jfFactory.i('jf-data-types');
+factory.initMethod = 'setProperties';
 /**
  * Clase que representa un campo de una tabla o respuesta del servidor.
  *
@@ -54,6 +56,29 @@ export default class jfDataTypeBase
      * @internal
      */
     $$value = null;
+
+    /**
+     * Asigna las propiedades de la clase a partir de un objeto.
+     *
+     * @param {Object} values Valores a asignar.
+     */
+    setProperties(values)
+    {
+        if (values && typeof values === 'object')
+        {
+            for (const _property of Object.keys(values))
+            {
+                if (_property[0] !== '$' && _property[0] !== '_' && _property in this)
+                {
+                    const _value = values[_property];
+                    if (_value !== undefined)
+                    {
+                        this[_property] = _value;
+                    }
+                }
+            }
+        }
+    }
 
     /**
      * Asigna el valor de la clase.
@@ -186,7 +211,7 @@ export default class jfDataTypeBase
     /**
      * Construye la instancia del tipo de datos especificado.
      *
-     * @method factory
+     * @method create
      *
      * @param {String|Class} name  Nombre del tipo de dato o referencia de la clase.
      * @param {*?}           value Configuración a aplicar a la nueva instancia.
@@ -195,32 +220,14 @@ export default class jfDataTypeBase
      *
      * @static
      */
-    static factory(name, value)
+    static create(name, value)
     {
-        let _instance;
-        let _Class = typeof name === 'function'
-            ? name
-            : fieldTypes[name];
-        if (_Class)
+        let _instance = factory.create(name);
+        if (_instance)
         {
-            _instance = new _Class();
             if (value && typeof value === 'object' && !Array.isArray(value))
             {
-                if ('$propertyTypes' in _instance)
-                {
-                    _instance.value = value;
-                }
-                else
-                {
-                    for (const _property of Object.keys(value))
-                    {
-                        // Se descartan aquellas claves que no sean propiedades de la instancia.
-                        if (_property in _instance)
-                        {
-                            _instance[_property] = value[_property];
-                        }
-                    }
-                }
+                _instance.setProperties(value);
             }
             else
             {
@@ -262,6 +269,6 @@ export default class jfDataTypeBase
      */
     static register(name, Class)
     {
-        fieldTypes[name] = Class;
+        factory.register(name, Class);
     }
 }

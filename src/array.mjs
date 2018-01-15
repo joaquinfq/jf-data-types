@@ -30,18 +30,24 @@ export default class jfDataTypeArray extends jfDataTypeBase
         {
             if (value.length)
             {
-                const _defs = this.constructor.defaults;
-                value       = value.map(
-                    value => jfDataTypeBase.factory(
-                        _defs.type,
-                        Object.assign(
+                const _Class     = this.constructor;
+                const _defaults  = _Class.defaults;
+                const _config    = _defaults.config;
+                const _hasConfig = _config && typeof _config === 'object';
+                const _type      = _defaults.type;
+                value            = value
+                    .map(
+                        value => {
+                            const _instance = _Class.create(_type, value);
+                            if (_hasConfig)
                             {
-                                value
-                            },
-                            _defs.config
-                        )
+                                _instance.setProperties(_config);
+                            }
+
+                            return _instance;
+                        }
                     )
-                );
+                    .filter(Boolean);
             }
             else
             {

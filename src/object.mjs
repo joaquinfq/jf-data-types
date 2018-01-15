@@ -11,6 +11,15 @@ import jfDataTypeBase from './base';
 export default class jfDataTypeObject extends jfDataTypeBase
 {
     /**
+     * Mapea las propiedades de la instancia con nuevos nombres
+     * permitiendo cambiar al vuelo la asignación de los valores.
+     *
+     * @property $propertyMap
+     * @type     {Object|null}
+     */
+    $propertyMap = null;
+
+    /**
      * Configuración de las propiedades de la clase.
      *
      * Es un objeto donde las claves son las propiedades existentes en la clase
@@ -36,6 +45,34 @@ export default class jfDataTypeObject extends jfDataTypeBase
     $propertyTypes = null;
 
     /**
+     * Mapea los valores con nombres de propiedades de la instancia.
+     *
+     * @method _remap
+     *
+     * @param {Object} values Valores a remapear.
+     *
+     * @protected
+     */
+    _remap(values)
+    {
+        const _map = this.$propertyMap;
+        if (_map && typeof _map === 'object')
+        {
+            for (let _property of Object.keys(_map))
+            {
+                const _oldName = _map[_property];
+                if (_oldName in values)
+                {
+                    values[_property] = values[_oldName];
+                    delete values[_oldName];
+                }
+            }
+        }
+
+        return values;
+    }
+
+    /**
      * @override
      */
     setValue(value)
@@ -45,11 +82,13 @@ export default class jfDataTypeObject extends jfDataTypeBase
             const _propertyTpes = this.$propertyTypes;
             if (_propertyTpes && typeof _propertyTpes === 'object')
             {
-                for (const _property of Object.keys(_propertyTpes))
+                const _Class = this.constructor;
+                const _value = this._remap(value);
+                for (const _property of Object.keys(_value))
                 {
-                    if (_property in value)
+                    if (_property in _propertyTpes)
                     {
-                        this[_property] = jfDataTypeBase.factory(_propertyTpes[_property], value[_property]);
+                        this[_property] = _Class.create(_propertyTpes[_property], _value[_property]);
                     }
                 }
             }
@@ -79,6 +118,14 @@ export default class jfDataTypeObject extends jfDataTypeBase
         }
 
         return _values;
+    }
+
+    /**
+     * @override
+     */
+    setProperties(values)
+    {
+        this.setValue(values);
     }
 }
 //------------------------------------------------------------------------------
