@@ -38,13 +38,16 @@ export default class jfDataTypeArray extends jfDataTypeBase
                 value            = value
                     .map(
                         value => {
-                            const _instance = _Class.create(_type, value);
-                            if (_hasConfig)
+                            if (!(value instanceof jfDataTypeBase))
                             {
-                                _instance.setProperties(_config);
+                                value = _Class.create(_type, value);
+                                if (_hasConfig)
+                                {
+                                    value.setProperties(_config);
+                                }
                             }
 
-                            return _instance;
+                            return value;
                         }
                     )
                     .filter(Boolean);
