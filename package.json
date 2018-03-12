@@ -21,7 +21,7 @@
     },
     "dependencies"    : {
         "format-decimal" : "^0.1.0",
-        "jf-factory" : "^1.0.0"
+        "jf-factory"     : "^1.0.0"
     },
     "devDependencies" : {
         "babel-core"                              : "^6.26.0",
