@@ -1,5 +1,5 @@
 {
-    "version"         : "1.0.1",
+    "version"         : "1.0.2",
     "author"          : "Joaquín Fernández",
     "name"            : "jf-data-types",
     "description"     : "Base classes for handling data types using OOP.",
@@ -13,8 +13,9 @@
         "oop",
         "types"
     ],
-    "license"         : "MIT",
     "homepage"        : "http://www.joaquinfernandez.net",
+    "license"         : "MIT",
+    "main"            : "build/jfDataTypes.js",
     "repository"      : {
         "type" : "git",
         "url"  : "https://github.com/joaquinfq/jfDataTypes"
