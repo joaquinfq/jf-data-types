@@ -1,4 +1,4 @@
-import jfDataTypeBase from './base';
+import jfDataTypeBase from './Base';
 
 /**
  * Manejadores para los símbolos usados en los formatos de las fechas.
@@ -79,7 +79,7 @@ export default class jfDataTypeDateTime extends jfDataTypeBase
     /**
      * @override
      */
-    static parser = value =>
+    static parser = function(value)
     {
         switch (typeof value)
         {
@@ -90,7 +90,7 @@ export default class jfDataTypeDateTime extends jfDataTypeBase
                 }
                 break;
             case 'object':
-                if (Array.isArray(value))
+                if (Array.isArray(value) && value.length)
                 {
                     value = new Date(...value);
                 }
@@ -107,6 +107,7 @@ export default class jfDataTypeDateTime extends jfDataTypeBase
             ? value
             : null;
     };
+
     /**
      * Formato por defecto para convertir la fecha en texto.
      *
@@ -115,6 +116,7 @@ export default class jfDataTypeDateTime extends jfDataTypeBase
      * @static
      */
     static defaultFormat = 'yyyy-MM-dd HH:mm:ss';
+
     /**
      * Formato a usar para convertir la fecha en texto.
      * Si no se especifica se usa `defaultFormat`.
@@ -166,15 +168,15 @@ export default class jfDataTypeDateTime extends jfDataTypeBase
     /**
      * Formatea una fecha convirtiéndola a texto.
      *
-     * @param {Date}   date   Fecha a formatear.
-     * @param {String} format Formato de la fecha.
+     * @param {Date}    date   Fecha a formatear.
+     * @param {String?} format Formato de la fecha.
      */
     static formatDate(date, format)
     {
         let _result = '';
-        if (format && date instanceof Date)
+        if (date instanceof Date)
         {
-            _result = format
+            _result = format && typeof format === 'string'
                 ? format.replace(
                     /(\w)\1{0,3}/g,
                     symbol => symbol in customSymbols

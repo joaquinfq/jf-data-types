@@ -1,42 +1,48 @@
 {
-    "version"         : "1.0.2",
-    "author"          : "Joaquín Fernández",
-    "name"            : "jf-data-types",
-    "description"     : "Base classes for handling data types using OOP.",
-    "bugs"            : {
-        "url" : "https://github.com/joaquinfq/jfDataTypes"
+    "version": "1.0.2",
+    "author": "Joaquín Fernández",
+    "name": "jf-data-types",
+    "description": "Base classes for handling data types using OOP.",
+    "bugs": {
+        "url": "https://github.com/joaquinfq/jfDataTypes"
     },
-    "keywords"        : [
+    "keywords": [
         "code",
         "data",
         "data types",
         "oop",
         "types"
     ],
-    "homepage"        : "http://www.joaquinfernandez.net",
-    "license"         : "MIT",
-    "main"            : "build/jfDataTypes.js",
-    "repository"      : {
-        "type" : "git",
-        "url"  : "https://github.com/joaquinfq/jfDataTypes"
+    "homepage": "http://www.joaquinfernandez.net",
+    "license": "MIT",
+    "main": "build/jfDataTypes.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/joaquinfq/jfDataTypes"
     },
-    "dependencies"    : {
-        "format-decimal" : "^0.1.0",
-        "jf-factory"     : "^1.0.0"
+    "dependencies": {
+        "format-decimal": "^0.1.0",
+        "jf-factory": "^1.0.0"
     },
-    "devDependencies" : {
-        "babel-core"                              : "^6.26.0",
-        "babel-loader"                            : "^7.1.2",
-        "babel-plugin-transform-class-properties" : "^6.24.1",
-        "babel-plugin-transform-runtime"          : "^6.23.0",
-        "babel-preset-env"                        : "^1.6.1",
-        "build-index"                             : "^0.1.2",
-        "uglifyjs-webpack-plugin"                 : "^1.1.6",
-        "webpack"                                 : "^3.10.0"
+    "devDependencies": {
+        "babel-core": "^6.26.0",
+        "babel-loader": "^7.1.2",
+        "babel-plugin-transform-class-properties": "^6.24.1",
+        "babel-plugin-transform-runtime": "^6.23.0",
+        "babel-preset-env": "^1.6.1",
+        "babel-preset-minify": "^0.3.0",
+        "babel-preset-stage-2": "^6.24.1",
+        "build-index": "^0.1.2",
+        "jest": "^22.4.3",
+        "node-env-tools": "^1.0.1",
+        "uglifyjs-webpack-plugin": "^1.2.4",
+        "webpack": "^3.10.0"
     },
-    "scripts"         : {
-        "build" : "webpack",
-        "test"  : "node test.js",
-        "watch" : "webpack --watch"
+    "scripts": {
+        "build": "webpack --config config/webpack.js",
+        "dist": "NODE_ENV=production webpack --config config/webpack.js",
+        "test": "NODE_ENV=testing jest --coverage --config config/jest.js",
+        "test2": "istanbul cover --report text test.js",
+        "watch": "webpack --watch --config config/webpack.js"
     }
 }

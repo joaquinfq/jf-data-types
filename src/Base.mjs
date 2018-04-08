@@ -135,7 +135,7 @@ export default class jfDataTypeBase
     validate()
     {
         let _isValid;
-        const _value = this.value;
+        const _value = this.$$value;
         if (_value === null)
         {
             _isValid = this.nullable;
@@ -149,28 +149,36 @@ export default class jfDataTypeBase
                 {
                     _validators = [_validators];
                 }
-                for (const _validator of _validators)
+                if (_validators.length)
                 {
-                    if (typeof _validator === 'function')
+                    for (const _validator of _validators)
                     {
-                        // Si es una función se llama con un solo parámetro, el valor.
-                        _isValid = _validator(_value);
+                        if (typeof _validator === 'function')
+                        {
+                            // Si es una función se llama con un solo parámetro, el valor.
+                            _isValid = _validator(_value);
+                        }
+                        else if (_validator && typeof _validator.fn === 'function')
+                        {
+                            // Si es un objeto, se pasa como segundo parámetro el propio
+                            // objeto para permitir configurar el validador.
+                            _isValid = _validator.fn(_value, _validator);
+                        }
+                        else
+                        {
+                            // Si se especificó un validador incorrecto, devolvemos `false`.
+                            _isValid = false;
+                        }
+                        if (!_isValid)
+                        {
+                            break;
+                        }
                     }
-                    else if (_validator && typeof _validator.fn === 'function')
-                    {
-                        // Si es un objeto, se pasa como segundo parámetro el propio
-                        // objeto para permitir configurar el validador.
-                        _isValid = _validator.fn(_value, _validator);
-                    }
-                    else
-                    {
-                        // Si se especificó un validador incorrecto, devolvemos `false`.
-                        _isValid = false;
-                    }
-                    if (!_isValid)
-                    {
-                        break;
-                    }
+                }
+                else
+                {
+                    // Si los validadores están vacíos, damos por bueno cualquier valor.
+                    _isValid = true;
                 }
             }
             else
@@ -205,7 +213,9 @@ export default class jfDataTypeBase
      */
     valueOf()
     {
-        return this.$$value;
+        return this.validate()
+            ? this.$$value
+            : null;
     }
 
     /**

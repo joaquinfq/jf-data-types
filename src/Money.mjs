@@ -1,4 +1,4 @@
-import jfDataTypeFloat from './float';
+import jfDataTypeFloat from './Float';
 
 /**
  * Clase para el manejo de cantidades monetarias.

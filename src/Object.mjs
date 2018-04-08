@@ -1,4 +1,4 @@
-import jfDataTypeBase from './base';
+import jfDataTypeBase from './Base';
 
 /**
  * Clase para el manejo de objetos.
@@ -58,7 +58,7 @@ export default class jfDataTypeObject extends jfDataTypeBase
         const _map = this.$propertyMap;
         if (_map && typeof _map === 'object')
         {
-            for (let _property of Object.keys(_map))
+            for (const _property of Object.keys(_map))
             {
                 const _oldName = _map[_property];
                 if (_oldName in values)
@@ -68,8 +68,6 @@ export default class jfDataTypeObject extends jfDataTypeBase
                 }
             }
         }
-
-        return values;
     }
 
     /**
@@ -83,7 +81,8 @@ export default class jfDataTypeObject extends jfDataTypeBase
             if (_propertyTpes && typeof _propertyTpes === 'object')
             {
                 const _Class = this.constructor;
-                const _value = this._remap(value);
+                const _value = {...value};
+                this._remap(_value);
                 for (const _property of Object.keys(_value))
                 {
                     if (_property in _propertyTpes)
@@ -101,16 +100,17 @@ export default class jfDataTypeObject extends jfDataTypeBase
      */
     valueOf()
     {
-        const _values = {};
+        const _values       = {};
         const _propertyTpes = this.$propertyTypes;
         if (_propertyTpes && typeof _propertyTpes === 'object')
         {
+            const _map = this.$propertyMap || {};
             for (const _name of Object.keys(_propertyTpes))
             {
                 const _value = this[_name];
                 if (_value !== undefined)
                 {
-                    _values[_name] = _value instanceof jfDataTypeBase
+                    _values[_map[_name] || _name] = _value instanceof jfDataTypeBase
                         ? _value.value
                         : _value;
                 }

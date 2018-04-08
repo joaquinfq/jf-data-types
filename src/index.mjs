@@ -1,14 +1,15 @@
-import jfDataTypeArray from './array.mjs';
-import jfDataTypeBase from './base.mjs';
-import jfDataTypeBoolean from './boolean.mjs';
-import jfDataTypeDateTime from './date-time.mjs';
-import jfDataTypeDate from './date.mjs';
-import jfDataTypeFloat from './float.mjs';
-import jfDataTypeInteger from './integer.mjs';
-import jfDataTypeMoney from './money.mjs';
-import jfDataTypeObject from './object.mjs';
-import jfDataTypeString from './string.mjs';
-import jfDataTypeTime from './time.mjs';
+import jfDataTypeArray    from './Array';
+import jfDataTypeBase     from './Base';
+import jfDataTypeBoolean  from './Boolean';
+import jfDataTypeDate     from './Date';
+import jfDataTypeDateTime from './DateTime';
+import jfDataTypeEnum     from './Enum';
+import jfDataTypeFloat    from './Float';
+import jfDataTypeInteger  from './Integer';
+import jfDataTypeMoney    from './Money';
+import jfDataTypeObject   from './Object';
+import jfDataTypeString   from './String';
+import jfDataTypeTime     from './Time';
 
 /**
  * Índice del paquete.
@@ -20,8 +21,9 @@ export default {
     'Array'    : jfDataTypeArray,
     'Base'     : jfDataTypeBase,
     'Boolean'  : jfDataTypeBoolean,
-    'DateTime' : jfDataTypeDateTime,
     'Date'     : jfDataTypeDate,
+    'DateTime' : jfDataTypeDateTime,
+    'Enum'     : jfDataTypeEnum,
     'Float'    : jfDataTypeFloat,
     'Integer'  : jfDataTypeInteger,
     'Money'    : jfDataTypeMoney,

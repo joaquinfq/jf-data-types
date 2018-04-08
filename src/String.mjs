@@ -1,4 +1,4 @@
-import jfDataTypeBase from './base';
+import jfDataTypeBase from './Base';
 
 /**
  * Clase para el manejo de textos.
@@ -13,9 +13,12 @@ export default class jfDataTypeString extends jfDataTypeBase
     /**
      * @override
      */
-    static parser = value => value === null || value === undefined
-        ? ''
-        : String(value);
+    static parser = function(value)
+    {
+        return value === null || value === undefined
+            ? ''
+            : String(value);
+    };
 
     /**
      * @override

@@ -1,4 +1,4 @@
-import jfDataTypeBase from './base';
+import jfDataTypeBase from './Base';
 
 /**
  * Clase para el manejo de valores booleanos.
@@ -13,9 +13,18 @@ export default class jfDataTypeBoolean extends jfDataTypeBase
     /**
      * @override
      */
-    static parser = value => value === 'off' || value === '0' || (Array.isArray(value) && value.length === 0)
-        ? false
-        : Boolean(value);
+    static parser = function(value)
+    {
+        // Si es un objeto y no tiene claves se asumirá como un valor vacío y el valor asignado será `false`.
+        if (value && typeof value === 'object' && !Array.isArray(value))
+        {
+            value = Object.keys(value);
+        }
+
+        return value === 'off' || value === '0' || (Array.isArray(value) && value.length === 0)
+            ? false
+            : Boolean(value);
+    };
 
     /**
      * @override

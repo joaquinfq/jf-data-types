@@ -1,5 +1,5 @@
 import jfFormatDecimal from 'format-decimal';
-import jfDataTypeBase from './base';
+import jfDataTypeBase from './Base';
 
 /**
  * Clase para el manejo de números decimales.
@@ -15,13 +15,15 @@ export default class jfDataTypeFloat extends jfDataTypeBase
     /**
      * @override
      */
-    static parser = value =>
+    static parser = function(value)
     {
         const _value = parseFloat(value);
+
         return isNaN(_value)
             ? null
             : _value;
     };
+
     /**
      * Símbolo a usar para el punto decimal.
      *
@@ -29,6 +31,7 @@ export default class jfDataTypeFloat extends jfDataTypeBase
      * @type     {String}
      */
     decimal              = ',';
+
     /**
      * Número de decimales a mostrar
      *
@@ -36,6 +39,7 @@ export default class jfDataTypeFloat extends jfDataTypeBase
      * @type     {Number}
      */
     precision            = 2;
+
     /**
      * Símbolo a usar para los separadores de miles.
      *
@@ -51,6 +55,7 @@ export default class jfDataTypeFloat extends jfDataTypeBase
     toString()
     {
         const _value = this.value;
+
         return typeof _value === 'number'
             ? jfFormatDecimal(_value, this)
             : '';

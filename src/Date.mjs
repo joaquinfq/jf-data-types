@@ -1,4 +1,4 @@
-import jfDataTypeDateTime from './date-time';
+import jfDataTypeDateTime from './DateTime';
 
 /**
  * Clase para el manejo de fechas.

@@ -1,4 +1,4 @@
-import jfDataTypeFloat from './float';
+import jfDataTypeFloat from './Float';
 
 /**
  * Clase para el manejo de números enteros.
@@ -13,17 +13,19 @@ export default class jfDataTypeInteger extends jfDataTypeFloat
     /**
      * @override
      */
-    static parser = value =>
+    static parser = function(value)
     {
         const _value = parseInt(value, 10);
+
         return isNaN(_value)
             ? null
             : _value;
     };
+
     /**
      * @override
      */
-    precision            = 0;
+    precision     = 0;
 }
 //------------------------------------------------------------------------------
 jfDataTypeInteger.register('Integer', jfDataTypeInteger);

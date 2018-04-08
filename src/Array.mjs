@@ -1,4 +1,4 @@
-import jfDataTypeBase from './base';
+import jfDataTypeBase from './Base';
 
 /**
  * Clase para el manejo de arrays de un solo tipo de datos.
@@ -41,7 +41,7 @@ export default class jfDataTypeArray extends jfDataTypeBase
                             if (!(value instanceof jfDataTypeBase))
                             {
                                 value = _Class.create(_type, value);
-                                if (_hasConfig)
+                                if (value && _hasConfig)
                                 {
                                     value.setProperties(_config);
                                 }
@@ -73,7 +73,7 @@ export default class jfDataTypeArray extends jfDataTypeBase
 
         return Array.isArray(_value)
             ? _value.map(v => v instanceof jfDataTypeBase ? v.valueOf() : v)
-            : _value;
+            : null;
     }
 }
 //------------------------------------------------------------------------------
