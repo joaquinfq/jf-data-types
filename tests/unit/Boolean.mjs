@@ -1,7 +1,7 @@
-import common            from '../utils/common';
-import helpers           from '../utils/helpers';
-import jfDataTypeBase    from '../../src/Base';
-import jfDataTypeBoolean from '../../src/Boolean';
+import common            from '#/utils/common';
+import helpers           from '#/utils/helpers';
+import jfDataTypeBase    from '@/Base';
+import jfDataTypeBoolean from '@/Boolean';
 
 describe('jfDataTypeBoolean - common', () => common(jfDataTypeBoolean, jfDataTypeBase));
 describe(

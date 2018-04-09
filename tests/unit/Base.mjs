@@ -1,5 +1,5 @@
-import helpers        from '../utils/helpers';
-import jfDataTypeBase from '../../src/Base';
+import helpers        from '#/utils/helpers';
+import jfDataTypeBase from '@/Base';
 
 function createSut(config)
 {

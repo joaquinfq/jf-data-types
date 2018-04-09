@@ -1,8 +1,8 @@
-import common          from '../utils/common';
+import common          from '#/utils/common';
 import formatDecimal   from 'format-decimal';
-import helpers         from '../utils/helpers';
-import jfDataTypeFloat from '../../src/Float';
-import jfDataTypeMoney from '../../src/Money';
+import helpers         from '#/utils/helpers';
+import jfDataTypeFloat from '@/Float';
+import jfDataTypeMoney from '@/Money';
 
 describe('jfDataTypeMoney - common', () => common(jfDataTypeMoney, jfDataTypeFloat));
 describe(

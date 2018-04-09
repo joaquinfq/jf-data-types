@@ -1,7 +1,7 @@
-import common             from '../utils/common';
-import helpers            from '../utils/helpers';
-import jfDataTypeDateTime from '../../src/DateTime';
-import jfDataTypeTime     from '../../src/Time';
+import common             from '#/utils/common';
+import helpers            from '#/utils/helpers';
+import jfDataTypeDateTime from '@/DateTime';
+import jfDataTypeTime     from '@/Time';
 
 describe('jfDataTypeTime - common', () => common(jfDataTypeTime, jfDataTypeDateTime));
 describe(

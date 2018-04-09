@@ -1,12 +1,12 @@
-import common            from '../utils/common';
-import helpers           from '../utils/helpers';
-import jfDataTypeBase    from '../../src/Base';
-import jfDataTypeBoolean from '../../src/Boolean';
-import jfDataTypeFloat   from '../../src/Float';
-import jfDataTypeInteger from '../../src/Integer';
-import jfDataTypeMoney   from '../../src/Money';
-import jfDataTypeString  from '../../src/String';
-import jfDataTypeObject  from '../../src/Object';
+import common            from '#/utils/common';
+import helpers           from '#/utils/helpers';
+import jfDataTypeBase    from '@/Base';
+import jfDataTypeBoolean from '@/Boolean';
+import jfDataTypeFloat   from '@/Float';
+import jfDataTypeInteger from '@/Integer';
+import jfDataTypeMoney   from '@/Money';
+import jfDataTypeString  from '@/String';
+import jfDataTypeObject  from '@/Object';
 //------------------------------------------------------------------------------
 // Configuramos algunas propiedades como textos y otras como referencias
 // para verificar que ambas definiciones funcionan

@@ -21,6 +21,10 @@ module.exports = {
         'json',
         'mjs'
     ],
+    moduleNameMapper           : {
+        '^@/(.*)$' : '<rootDir>/src/$1',
+        '^#/(.*)$' : '<rootDir>/tests/$1',
+    },
     rootDir                    : require('path').resolve(__dirname, '..'),
     roots                      : [
         '<rootDir>/src',

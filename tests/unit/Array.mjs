@@ -1,8 +1,8 @@
-import common           from '../utils/common';
-import helpers          from '../utils/helpers';
-import jfDataTypeBase   from '../../src/Base';
-import jfDataTypeArray  from '../../src/Array';
-import jfDataTypeString from '../../src/String';
+import common           from '#/utils/common';
+import helpers          from '#/utils/helpers';
+import jfDataTypeArray  from '@/Array';
+import jfDataTypeBase   from '@/Base';
+import jfDataTypeString from '@/String';
 
 function createTypes(Class, values)
 {
