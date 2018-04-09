@@ -1,9 +1,9 @@
-import common         from '#/utils/common';
+import base           from '#/utils/base';
 import helpers        from '#/utils/helpers';
 import jfDataTypeBase from '@/Base';
 import jfDataTypeEnum from '@/Enum';
 
-describe('jfDataTypeEnum - common', () => common(jfDataTypeEnum, jfDataTypeBase));
+base(jfDataTypeEnum, jfDataTypeBase);
 describe(
     'jfDataTypeEnum',
     () => {

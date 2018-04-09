@@ -1,8 +1,8 @@
-import common            from '#/utils/common';
+import base              from '#/utils/base';
 import jfDataTypeFloat   from '@/Float';
 import jfDataTypeInteger from '@/Integer';
 
-describe('jfDataTypeInteger - common', () => common(jfDataTypeInteger, jfDataTypeFloat));
+base(jfDataTypeInteger, jfDataTypeFloat);
 describe(
     'jfDataTypeInteger',
     () =>

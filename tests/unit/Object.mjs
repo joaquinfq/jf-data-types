@@ -1,4 +1,4 @@
-import common            from '#/utils/common';
+import base              from '#/utils/base';
 import helpers           from '#/utils/helpers';
 import jfDataTypeBase    from '@/Base';
 import jfDataTypeBoolean from '@/Boolean';
@@ -127,7 +127,7 @@ function generateTestPropertyTypes(value)
 
 }
 //------------------------------------------------------------------------------
-describe('jfDataTypeObject - common', () => common(jfDataTypeObject, jfDataTypeBase));
+base(jfDataTypeObject, jfDataTypeBase);
 describe(
     'jfDataTypeDateObject - Construcción',
     () =>

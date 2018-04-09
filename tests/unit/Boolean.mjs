@@ -1,9 +1,9 @@
-import common            from '#/utils/common';
+import base              from '#/utils/base';
 import helpers           from '#/utils/helpers';
 import jfDataTypeBase    from '@/Base';
 import jfDataTypeBoolean from '@/Boolean';
 
-describe('jfDataTypeBoolean - common', () => common(jfDataTypeBoolean, jfDataTypeBase));
+base(jfDataTypeBoolean, jfDataTypeBase);
 describe(
     'jfDataTypeBoolean',
     () => {

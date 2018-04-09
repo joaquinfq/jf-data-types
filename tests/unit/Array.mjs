@@ -1,4 +1,4 @@
-import common           from '#/utils/common';
+import base             from '#/utils/base';
 import helpers          from '#/utils/helpers';
 import jfDataTypeArray  from '@/Array';
 import jfDataTypeBase   from '@/Base';
@@ -16,7 +16,7 @@ function createTypes(Class, values)
     )
 }
 
-describe('jfDataTypeArray - common', () => common(jfDataTypeArray, jfDataTypeBase));
+base(jfDataTypeArray, jfDataTypeBase);
 describe(
     'jfDataTypeArray',
     () => {

@@ -1,10 +1,10 @@
-import common          from '#/utils/common';
+import base            from '#/utils/base';
 import formatDecimal   from 'format-decimal';
 import helpers         from '#/utils/helpers';
 import jfDataTypeBase  from '@/Base';
 import jfDataTypeFloat from '@/Float';
 
-describe('jfDataTypeFloat - common', () => common(jfDataTypeFloat, jfDataTypeBase));
+base(jfDataTypeFloat, jfDataTypeBase);
 describe(
     'jfDataTypeDateFloat',
     () =>

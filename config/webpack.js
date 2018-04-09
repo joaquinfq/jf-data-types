@@ -42,7 +42,8 @@ const _config = {
         pathinfo      : true
     },
     resolve : {
-        extensions : ['.mjs', '.js']
+        extensions : ['.mjs', '.js'],
+        symlinks   : false
     },
     plugins : []
 };

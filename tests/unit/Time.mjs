@@ -1,9 +1,9 @@
-import common             from '#/utils/common';
+import base               from '#/utils/base';
 import helpers            from '#/utils/helpers';
 import jfDataTypeDateTime from '@/DateTime';
 import jfDataTypeTime     from '@/Time';
 
-describe('jfDataTypeTime - common', () => common(jfDataTypeTime, jfDataTypeDateTime));
+base(jfDataTypeTime, jfDataTypeDateTime);
 describe(
     'jfDataTypeTime',
     () =>
