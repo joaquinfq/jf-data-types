@@ -14,7 +14,7 @@ const _config = {
         rules : [
             {
                 test    : /\.m?js$/,
-                exclude : /node_modules/,
+                exclude : /node_modules\/(?!jf-)/,
                 include : [
                     path.resolve(__dirname, '..', 'src'),
                     path.dirname(require.resolve('jf-factory'))

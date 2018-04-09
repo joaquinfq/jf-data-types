@@ -1,5 +1,5 @@
 {
-    "version": "1.0.3",
+    "version": "1.0.4",
     "author": "Joaquín Fernández",
     "name": "jf-data-types",
     "description": "Base classes for handling data types using OOP.",
@@ -42,7 +42,6 @@
         "build": "webpack --config config/webpack.js",
         "dist": "NODE_ENV=production webpack --config config/webpack.js",
         "test": "NODE_ENV=testing jest --coverage --config config/jest.js",
-        "test2": "istanbul cover --report text test.js",
         "watch": "webpack --watch --config config/webpack.js"
     }
 }

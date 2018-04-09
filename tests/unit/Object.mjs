@@ -75,7 +75,8 @@ function generateTestAssignment(map = '')
         'jfDataTypeDateObject - Asignación de propiedades: ' + JSON.stringify(map),
         () =>
         {
-            const _object = jfDataTypeBase.create(map ? 'TestObjectMap' : 'TestObject');
+            const _object   = jfDataTypeBase.create(map ? 'TestObjectMap' : 'TestObject');
+            _object.$useMap = !!map;
             //------------------------------------------------------------------------------
             // Verificamos la asignación de una propiedad solamente sin que afecte al resto
             //------------------------------------------------------------------------------
@@ -187,6 +188,7 @@ describe(
         const _sut    = new TestObjectMap();
         const _config = {...config};
         const _remap  = {};
+        _sut.$useMap  = true;
         for (const _property of properties)
         {
             _remap[propertyMap[_property]] = _config[_property];
@@ -201,7 +203,26 @@ describe(
     }
 );
 describe(
-    'jfDataTypeDateObject - valueOf() + remap',
+    'jfDataTypeDateObject - valueOf() --> $propertMap && $useMap',
+    () =>
+    {
+        const _sut    = new TestObjectMap();
+        const _config = {...config};
+        const _remap  = {};
+        _sut.$useMap  = true;
+        for (const _property of properties)
+        {
+            _remap[propertyMap[_property]] = _config[_property];
+        }
+        let _values = {..._remap};
+        _sut.value  = _values;
+        helpers.testObject(_sut.value, _values, 'Valores remapeados');
+        _sut.$propertyMap = null;
+        helpers.testObject(_sut.value, config, 'Valores sin remapear');
+    }
+);
+describe(
+    'jfDataTypeDateObject - valueOf() --> $propertMap && !$useMap',
     () =>
     {
         const _sut    = new TestObjectMap();
@@ -211,9 +232,8 @@ describe(
         {
             _remap[propertyMap[_property]] = _config[_property];
         }
-        let _values = {..._remap};
-        _sut.value  = _values;
-        helpers.testObject(_sut.value, _values, 'Valores remapeados');
+        _sut.value  = {..._remap};
+        helpers.testObject(_sut.value, config, 'Valores sin remapear');
         _sut.$propertyMap = null;
         helpers.testObject(_sut.value, config, 'Valores sin remapear');
     }

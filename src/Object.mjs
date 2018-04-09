@@ -45,6 +45,13 @@ export default class jfDataTypeObject extends jfDataTypeBase
     $propertyTypes = null;
 
     /**
+     * Indica si se usa el mapeo cuando se devuelven los valores.
+     *
+     * @type {Boolean}
+     */
+    $useMap = false;
+
+    /**
      * Mapea los valores con nombres de propiedades de la instancia.
      *
      * @method _remap
@@ -104,7 +111,9 @@ export default class jfDataTypeObject extends jfDataTypeBase
         const _propertyTpes = this.$propertyTypes;
         if (_propertyTpes && typeof _propertyTpes === 'object')
         {
-            const _map = this.$propertyMap || {};
+            const _map = this.$useMap
+                ? this.$propertyMap || {}
+                : {};
             for (const _name of Object.keys(_propertyTpes))
             {
                 const _value = this[_name];
