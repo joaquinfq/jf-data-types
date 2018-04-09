@@ -30,10 +30,10 @@ export default class jfDataTypeBase
     /**
      * Indica si el campo puede ser `null`.
      *
-     * @property nullable
+     * @property $nullable
      * @type     {Boolean}
      */
-    nullable = true;
+    $nullable = true;
 
     /**
      * Validadores a usar para verificar el valor de la instancia.
@@ -41,10 +41,10 @@ export default class jfDataTypeBase
      * Cada elemento del array puede ser una función o un objeto
      * con al menos la clave `fn`.
      *
-     * @property validators
+     * @property $validators
      * @type     {Object[]|Function[]|null}
      */
-    validators = null;
+    $validators = null;
 
     /**
      * Valor del campo.
@@ -126,7 +126,7 @@ export default class jfDataTypeBase
 
     /**
      * Valida el valor de la instancia usando los validadores especificados en
-     * la propiedad `validators`.
+     * la propiedad `$validators`.
      *
      * @method validate
      *
@@ -138,11 +138,11 @@ export default class jfDataTypeBase
         const _value = this.$$value;
         if (_value === null)
         {
-            _isValid = this.nullable;
+            _isValid = this.$nullable;
         }
         else
         {
-            let _validators = this.validators;
+            let _validators = this.$validators;
             if (_validators)
             {
                 if (!Array.isArray(_validators))

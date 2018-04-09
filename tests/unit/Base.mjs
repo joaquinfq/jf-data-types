@@ -10,7 +10,8 @@ function createSut(config)
 }
 function validate(description, validators, valueOk, valueKo)
 {
-    const _sut = createSut({ validators });
+    const _sut       = createSut();
+    _sut.$validators = validators;
     if (valueOk === null )
     {
         it(
@@ -54,9 +55,9 @@ describe(
                 parser : null
             },
             {
-                $$value    : null,
-                nullable   : true,
-                validators : null
+                $nullable   : true,
+                $validators : null,
+                $$value     : null
             },
             [ null ]
         );
@@ -80,17 +81,14 @@ describe(
             'undefined',
             () => {
                 const _value = Math.random();
-                const _sut   = createSut(
-                    {
-                        nullable : _value
-                    }
-                );
+                const _sut   = createSut();
+                _sut.value   = _value;
                 _sut.setProperties(
                     {
-                        nullable : undefined
+                        value : undefined
                     }
                 );
-                expect(_sut.nullable).toBe(_value);
+                expect(_sut.value).toBe(_value);
             }
         );
     }
@@ -119,16 +117,13 @@ describe(
     'jfDataTypeBase - validate',
     () => {
         it(
-            'nullable',
+            '$nullable',
             () => {
-                const _sut = createSut(
-                    {
-                        nullable : true,
-                        value    : null
-                    }
-                );
+                const _sut = createSut();
+                _sut.$nullable = true;
+                _sut.value     = null;
                 expect(_sut.validate()).toBe(true);
-                _sut.nullable = false;
+                _sut.$nullable = false;
                 expect(_sut.validate()).toBe(false);
             }
         );
@@ -136,14 +131,11 @@ describe(
             'Sin validadores',
             () => {
                 // Si los validadores están vacíos se da por bueno cualquier valor.
-                const _sut = createSut(
-                    {
-                        validators : null,
-                        value      : 10
-                    }
-                );
+                const _sut = createSut();
+                _sut.$validators = null;
+                _sut.value       = 10;
                 expect(_sut.validate()).toBe(true);
-                _sut.validators = [];
+                _sut.$validators = [];
                 expect(_sut.validate()).toBe(true);
             }
         );
@@ -156,15 +148,12 @@ describe(
 describe(
     'jfDataTypeBase - valueOf()',
     () => {
-        const _sut = createSut(
-            {
-                value      : 100,
-                validators : () => false
-            }
-        );
+        const _sut = createSut();
+        _sut.$validators = () => false;
+        _sut.value       = 100;
         expect(_sut.validate()).toBe(false);
         expect(_sut.valueOf()).toBe(null);
-        _sut.validators = null;
+        _sut.$validators = null;
         expect(_sut.validate()).toBe(true);
         expect(_sut.valueOf()).toBe(100);
     }

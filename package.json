@@ -1,5 +1,5 @@
 {
-    "version": "1.0.4",
+    "version": "1.0.5",
     "author": "Joaquín Fernández",
     "name": "jf-data-types",
     "description": "Base classes for handling data types using OOP.",

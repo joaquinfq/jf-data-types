@@ -12,25 +12,25 @@ export default class jfDataTypeEnum extends jfDataTypeBase
     /**
      * Valores permitidos.
      *
-     * @property allowedValues
+     * @property $allowedValues
      * @type     {Array}
      */
-    allowedValues = [];
+    $allowedValues = [];
 
     /**
      * Valor a seleccionar por defecto.
      *
-     * @property defValue
+     * @property $defValue
      * @type     {*}
      */
-    defValue = null;
+    $defValue = null;
 
     /**
      * @override
      */
     static parser = function(value)
     {
-        return this.allowedValues.includes(value)
+        return this.$allowedValues.includes(value)
             ? value
             : null;
     };
@@ -41,8 +41,8 @@ export default class jfDataTypeEnum extends jfDataTypeBase
     constructor(...args)
     {
         super(...args);
-        this.validators = [
-            value => this.allowedValues.includes(value)
+        this.$validators = [
+            value => this.$allowedValues.includes(value)
         ];
     }
 
@@ -53,22 +53,10 @@ export default class jfDataTypeEnum extends jfDataTypeBase
      */
     loadDefault()
     {
-        const _default = this.defValue;
-        this.value     = this.allowedValues.includes(_default)
+        const _default = this.$defValue;
+        this.value     = this.$allowedValues.includes(_default)
             ? _default
             : null;
-    }
-
-    /**
-     * @override
-     */
-    setProperties(values)
-    {
-        super.setProperties(values);
-        if (values && typeof values === 'object' && 'defValue' in values && this.value === null)
-        {
-            this.loadDefault();
-        }
     }
 }
 //------------------------------------------------------------------------------
