@@ -7,6 +7,7 @@ import jfFactory from 'jf-factory';
  */
 const factory = jfFactory.i('jf-data-types');
 factory.initMethod = 'setProperties';
+
 /**
  * Clase que representa un campo de una tabla o respuesta del servidor.
  *
@@ -200,6 +201,8 @@ export default class jfDataTypeBase
 
     /**
      * Asigna el valor de la instancia.
+     *
+     * @param {*} value Valor a asignar a la instancia.
      */
     set value(value)
     {
@@ -232,7 +235,7 @@ export default class jfDataTypeBase
      */
     static create(name, value)
     {
-        let _instance = factory.create(name);
+        const _instance = factory.create(name);
         if (_instance)
         {
             if (value && typeof value === 'object' && !Array.isArray(value))
@@ -244,7 +247,41 @@ export default class jfDataTypeBase
                 _instance.value = value;
             }
         }
+
         return _instance;
+    }
+
+    /**
+     * Devuelve la instancia de la factoría siendo usada.
+     *
+     * @return {Factory} Factoría usada.
+     */
+    static get factory()
+    {
+        return factory;
+    }
+
+    /**
+     * Indica si una instancia es de la clase especificada.
+     *
+     * @param {Object} instance  Instancia a verificar.
+     * @param {String} classname Nombre de la clase a comprobar.
+     *
+     * @return {Boolean} `true` si la instancia es de esa clase.
+     */
+    static is(instance, classname)
+    {
+        let _is = false;
+        if (instance && classname)
+        {
+            const _Class = factory.get(classname);
+            if (_Class)
+            {
+                _is = instance.constructor === _Class;
+            }
+        }
+
+        return _is;
     }
 
     /**
@@ -262,6 +299,7 @@ export default class jfDataTypeBase
     static pad(value, length = 2)
     {
         const _value = value.toFixed(0);
+
         return _value.length < length
             ? ('0'.repeat(length) + _value).substr(-length)
             : _value;
@@ -282,3 +320,5 @@ export default class jfDataTypeBase
         factory.register(name, Class);
     }
 }
+//------------------------------------------------------------------------------
+factory.register('Base', jfDataTypeBase);

@@ -1,5 +1,8 @@
-import helpers        from '#/utils/helpers';
-import jfDataTypeBase from '@/Base';
+import helpers          from '#/utils/helpers';
+import jfFactory        from 'jf-factory';
+import jfDataTypeBase   from '@/Base';
+import jfDataTypeDate   from '@/Date';
+import jfDataTypeObject from '@/Object';
 
 function createSut(config)
 {
@@ -64,6 +67,36 @@ describe(
     }
 );
 describe(
+    'jfDataTypeBase - factory',
+    () => expect(jfDataTypeBase.factory).toBe(jfFactory.i('jf-data-types'))
+);
+describe(
+    'jfDataTypeBase - is',
+    () => {
+        [ 0, null, undefined, '', false ].forEach(
+            falsy => {
+                expect(jfDataTypeBase.is(falsy, 'Base')).toBe(false);
+                expect(jfDataTypeBase.is(new jfDataTypeBase(), falsy)).toBe(false);
+            }
+        );
+
+        expect(jfDataTypeBase.is(new jfDataTypeBase(), 'Base')).toBe(true);
+        expect(jfDataTypeBase.is(new jfDataTypeBase(), 'Date')).toBe(false);
+        expect(jfDataTypeBase.is(new jfDataTypeBase(), 'Object')).toBe(false);
+        expect(jfDataTypeBase.is(new jfDataTypeBase(), 'Unknown')).toBe(false);
+
+        expect(jfDataTypeBase.is(new jfDataTypeDate(), 'Base')).toBe(false);
+        expect(jfDataTypeBase.is(new jfDataTypeDate(), 'Date')).toBe(true);
+        expect(jfDataTypeBase.is(new jfDataTypeDate(), 'Object')).toBe(false);
+        expect(jfDataTypeBase.is(new jfDataTypeDate(), 'Unknown')).toBe(false);
+
+        expect(jfDataTypeBase.is(new jfDataTypeObject(), 'Base')).toBe(false);
+        expect(jfDataTypeBase.is(new jfDataTypeObject(), 'Date')).toBe(false);
+        expect(jfDataTypeBase.is(new jfDataTypeObject(), 'Object')).toBe(true);
+        expect(jfDataTypeBase.is(new jfDataTypeObject(), 'Unknown')).toBe(false);
+    }
+);
+describe(
     'jfDataTypeBase - setProperties',
     () => {
         [
@@ -104,7 +137,7 @@ describe(
             [ 1,         '1'     ],
             [ false,     'false' ],
             [ true,      'true'  ],
-            [ 'abc',     'abc'   ],
+            [ 'abc',     'abc'   ]
         ].forEach(
             ([ value, expected ]) => it(
                 JSON.stringify(value),
