@@ -157,6 +157,32 @@ generateTestAssignment(propertyMap);
 generateTestPropertyTypes(null);
 generateTestPropertyTypes({});
 describe(
+    'jfDataTypeDateObject - setProperties - null',
+    () =>
+    {
+        // Verifica que cuando es null no se construya una instancia de
+        // jf.dataType.Base sino que se asigne `null`.
+        const _sut = buildSut();
+        [ false, true ].forEach(
+            value => {
+                _sut.setProperties(
+                    {
+                        boolean : value
+                    }
+                );
+                expect(_sut.boolean).toBeInstanceOf(jfDataTypeBoolean);
+                expect(_sut.boolean.value).toBe(value);
+            }
+        );
+        _sut.setProperties(
+            {
+                boolean : null
+            }
+        );
+        expect(_sut.boolean).toBeNull();
+    }
+);
+describe(
     'jfDataTypeDateObject - Valores sin definir',
     () =>
     {
