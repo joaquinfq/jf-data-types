@@ -41,7 +41,7 @@ describe(
         const _value = createTypes(jfDataTypeString, [ 1, 2, 3 ]);
         const _sut   = new jfDataTypeArray();
         _sut.value   = _value;
-        expect(_sut.$$value).toEqual(_value);
+        expect(_sut.raw()).toEqual(_value);
     }
 );
 describe(
@@ -50,7 +50,7 @@ describe(
         const _value = [ 1, 2, 3 ];
         const _sut   = new jfDataTypeArray();
         _sut.value   = _value;
-        expect(_sut.$$value).toEqual(createTypes(jfDataTypeString, [ 1, 2, 3 ]));
+        expect(_sut.raw()).toEqual(createTypes(jfDataTypeString, [ 1, 2, 3 ]));
     }
 );
 describe(
@@ -84,5 +84,32 @@ describe(
         const _sut   = new jfDataTypeArray();
         _sut.value   = _value;
         expect(_sut.valueOf()).toEqual(_value.map(String));
+    }
+);
+describe(
+    'jfDataTypeArray - for...of',
+    () => {
+        const _items = [ 'a', 'b', 'c', 'd', 'e', 'f' ];
+        const _sut   = new jfDataTypeArray();
+        _sut.value   = _items;
+        const _value = [];
+        for (const _v of _sut)
+        {
+            _value.push(_v.valueOf());
+        }
+        expect(_value).toEqual(_items);
+    }
+);
+describe(
+    'jfDataTypeArray - for...of con valor inválido',
+    () => {
+        const _sut   = new jfDataTypeArray();
+        _sut.value   = {};
+        const _value = [];
+        for (const _v of _sut)
+        {
+            _value.push(_v.valueOf());
+        }
+        expect(_value).toEqual([]);
     }
 );

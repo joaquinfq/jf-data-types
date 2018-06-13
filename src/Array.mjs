@@ -21,6 +21,7 @@ export default class jfDataTypeArray extends jfDataTypeBase
         config : {},
         type   : 'String'
     };
+
     /**
      * @override
      */
@@ -61,8 +62,32 @@ export default class jfDataTypeArray extends jfDataTypeBase
         {
             value = null;
         }
+
         return value;
     };
+
+    /**
+     * Iterador que permite usar un bucle `for..of` para iterar sobre la instancia.
+     *
+     * @return {Object} Configuración a usar por el iterador.
+     */
+    [Symbol.iterator]()
+    {
+        let _current  = 0;
+        const _values = this.raw() || [];
+
+        return {
+            next()
+            {
+                const _value = _values[_current++];
+
+                return {
+                    done  : _value === undefined,
+                    value : _value
+                };
+            }
+        };
+    }
 
     /**
      * @override

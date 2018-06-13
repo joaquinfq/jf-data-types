@@ -59,6 +59,16 @@ export default class jfDataTypeBase
     $$value = null;
 
     /**
+     * Retorna el valor de la instancia sin procesar.
+     *
+     * @return {*} Valor de la instancia.
+     */
+    raw()
+    {
+        return this.$$value;
+    }
+
+    /**
      * Asigna las propiedades de la clase a partir de un objeto.
      *
      * @param {Object} values Valores a asignar.
@@ -136,7 +146,7 @@ export default class jfDataTypeBase
     validate()
     {
         let _isValid;
-        const _value = this.$$value;
+        const _value = this.raw();
         if (_value === null)
         {
             _isValid = this.$nullable;
@@ -217,7 +227,7 @@ export default class jfDataTypeBase
     valueOf()
     {
         return this.validate()
-            ? this.$$value
+            ? this.raw()
             : null;
     }
 
