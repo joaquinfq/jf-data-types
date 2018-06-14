@@ -95,9 +95,17 @@ export default class jfDataTypeObject extends jfDataTypeBase
                     if (_property in _propertyTpes)
                     {
                         const _data     = _value[_property];
-                        this[_property] = _data === null || _data === undefined
-                            ? null
-                            : _Class.create(_propertyTpes[_property], _data);
+                        if (_data === null || _data === undefined)
+                        {
+                            this[_property] = null;
+                        }
+                        else
+                        {
+                            const _type     = _propertyTpes[_property];
+                            this[_property] = _type === '*'
+                                ? _data
+                                : _Class.create(_propertyTpes[_property], _data);
+                        }
                     }
                 }
             }

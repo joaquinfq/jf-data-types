@@ -72,7 +72,7 @@ function buildSut(config)
 function generateTestAssignment(map = '')
 {
     describe(
-        'jfDataTypeDateObject - Asignación de propiedades: ' + JSON.stringify(map),
+        'jfDataTypeObject - Asignación de propiedades: ' + JSON.stringify(map),
         () =>
         {
             const _object   = jfDataTypeBase.create(map ? 'TestObjectMap' : 'TestObject');
@@ -111,7 +111,7 @@ function generateTestPropertyTypes(value)
 {
     const _name = JSON.stringify(value);
     describe(
-        'jfDataTypeDateObject - $propertyTypes = ' + _name,
+        'jfDataTypeObject - $propertyTypes = ' + _name,
         () =>
         {
             // Si la propiedad no está definida, no se debería asignar.
@@ -129,7 +129,7 @@ function generateTestPropertyTypes(value)
 //------------------------------------------------------------------------------
 base(jfDataTypeObject, jfDataTypeBase);
 describe(
-    'jfDataTypeDateObject - Construcción',
+    'jfDataTypeObject - Construcción',
     () =>
     {
         const _sut = buildSut(config);
@@ -138,7 +138,7 @@ describe(
     }
 );
 describe(
-    'jfDataTypeDateObject - Estado inicial',
+    'jfDataTypeObject - Estado inicial',
     () =>
     {
         const _expected = {};
@@ -157,7 +157,7 @@ generateTestAssignment(propertyMap);
 generateTestPropertyTypes(null);
 generateTestPropertyTypes({});
 describe(
-    'jfDataTypeDateObject - setProperties - null',
+    'jfDataTypeObject - setProperties - null',
     () =>
     {
         // Verifica que cuando es null no se construya una instancia de
@@ -183,7 +183,7 @@ describe(
     }
 );
 describe(
-    'jfDataTypeDateObject - Valores sin definir',
+    'jfDataTypeObject - Valores sin definir',
     () =>
     {
         const _sut = buildSut(config);
@@ -196,7 +196,32 @@ describe(
     }
 );
 describe(
-    'jfDataTypeDateObject - Propiedades escalares',
+    'jfDataTypeObject - Propiedades comodín',
+    () =>
+    {
+        const _sut = buildSut(config);
+        _sut.$propertyTypes = {
+            boolean : '*',
+            float   : '*',
+            integer : '*',
+            money   : '*',
+            string  : '*'
+        };
+        const _values = {
+            boolean : new Date(),
+            float   : new Map(),
+            integer : new WeakMap(),
+            money   : [1, 2, 3],
+            string  : { a : 1, b : 2 }
+        };
+        _sut.setValue(_values);
+        Object.keys(_values).forEach(
+            prop => expect(_sut[prop]).toEqual(_values[prop])
+        );
+    }
+);
+describe(
+    'jfDataTypeObject - Propiedades escalares',
     () =>
     {
         const _sut = buildSut();
@@ -208,7 +233,7 @@ describe(
     }
 );
 describe(
-    'jfDataTypeDateObject - remap',
+    'jfDataTypeObject - remap',
     () =>
     {
         const _sut    = new TestObjectMap();
@@ -229,7 +254,7 @@ describe(
     }
 );
 describe(
-    'jfDataTypeDateObject - valueOf() --> $propertMap && $useMap',
+    'jfDataTypeObject - valueOf() --> $propertMap && $useMap',
     () =>
     {
         const _sut    = new TestObjectMap();
@@ -248,7 +273,7 @@ describe(
     }
 );
 describe(
-    'jfDataTypeDateObject - valueOf() --> $propertMap && !$useMap',
+    'jfDataTypeObject - valueOf() --> $propertMap && !$useMap',
     () =>
     {
         const _sut    = new TestObjectMap();
