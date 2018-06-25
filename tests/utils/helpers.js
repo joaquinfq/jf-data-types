@@ -129,6 +129,6 @@ module.exports = {
             actual   = actual.getTime();
             expected = expected.getTime();
         }
-        expect(actual).toBe(expected);
+        expect(actual).toEqual(expected);
     }
 };
