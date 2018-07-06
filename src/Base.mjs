@@ -19,16 +19,6 @@ factory.initMethod = 'setProperties';
 export default class jfDataTypeBase
 {
     /**
-     * Callback a usar para analizar el valor de entrada y que deberá devolver
-     * el valor a asignar a la instancia.
-     *
-     * @property parser
-     * @type     {Function|null}
-     * @static
-     */
-    static parser = null;
-
-    /**
      * Indica si el campo puede ser `null`.
      *
      * @property $nullable
@@ -57,6 +47,16 @@ export default class jfDataTypeBase
      * @internal
      */
     $$value = null;
+
+    /**
+     * Analiza el valor de entrada y devuelve el valor a asignar a la instancia.
+     *
+     * @return {*|null} El valor a asignar a la instancia.
+     */
+    _parseValue(value)
+    {
+        return value;
+    }
 
     /**
      * Retorna el valor de la instancia sin procesar.
@@ -98,17 +98,9 @@ export default class jfDataTypeBase
      */
     setValue(value)
     {
-        if (value === null)
-        {
-            this.$$value = null;
-        }
-        else
-        {
-            const _parser = this.constructor.parser;
-            this.$$value  = typeof _parser === 'function'
-                ? _parser.call(this, value)
-                : value;
-        }
+        this.$$value = value === null
+            ? null
+            :this._parseValue(value);
     }
 
     /**

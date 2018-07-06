@@ -13,7 +13,7 @@ export default class jfDataTypeString extends jfDataTypeBase
     /**
      * @override
      */
-    static parser = function(value)
+    _parseValue(value)
     {
         return value === null || value === undefined
             ? ''

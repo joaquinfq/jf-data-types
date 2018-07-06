@@ -28,16 +28,6 @@ export default class jfDataTypeEnum extends jfDataTypeBase
     /**
      * @override
      */
-    static parser = function(value)
-    {
-        return this.$allowedValues.includes(value)
-            ? value
-            : null;
-    };
-
-    /**
-     * @override
-     */
     constructor(...args)
     {
         super(...args);
@@ -58,6 +48,16 @@ export default class jfDataTypeEnum extends jfDataTypeBase
             ? _default
             : null;
     }
+
+    /**
+     * @override
+     */
+    _parseValue(value)
+    {
+        return this.$allowedValues.includes(value)
+            ? value
+            : null;
+    };
 }
 //------------------------------------------------------------------------------
 jfDataTypeBase.register('Enum', jfDataTypeEnum);

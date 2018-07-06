@@ -54,9 +54,7 @@ describe(
             [
                 [ jfDataTypeBase, null, null,  null,  '' ]
             ],
-            {
-                parser : null
-            },
+            null,
             {
                 $nullable   : true,
                 $validators : null,

@@ -13,7 +13,12 @@ export default class jfDataTypeInteger extends jfDataTypeFloat
     /**
      * @override
      */
-    static parser = function(value)
+    precision     = 0;
+
+    /**
+     * @override
+     */
+    _parseValue(value)
     {
         const _value = parseInt(value, 10);
 
@@ -21,11 +26,6 @@ export default class jfDataTypeInteger extends jfDataTypeFloat
             ? null
             : _value;
     };
-
-    /**
-     * @override
-     */
-    precision     = 0;
 }
 //------------------------------------------------------------------------------
 jfDataTypeInteger.register('Integer', jfDataTypeInteger);

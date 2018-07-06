@@ -23,48 +23,6 @@ export default class jfDataTypeArray extends jfDataTypeBase
     };
 
     /**
-     * @override
-     */
-    static parser = function (value)
-    {
-        if (Array.isArray(value))
-        {
-            if (value.length)
-            {
-                const _Class     = this.constructor;
-                const _config    = _Class.defaults.config;
-                const _hasConfig = _config && typeof _config === 'object';
-                value            = value
-                    .map(
-                        value => {
-                            if (!_Class.isItem(value))
-                            {
-                                value = _Class.buildItem(value);
-                                if (value && _hasConfig)
-                                {
-                                    value.setProperties(_config);
-                                }
-                            }
-
-                            return value;
-                        }
-                    )
-                    .filter(Boolean);
-            }
-            else
-            {
-                value = [];
-            }
-        }
-        else
-        {
-            value = null;
-        }
-
-        return value;
-    };
-
-    /**
      * Iterador que permite usar un bucle `for..of` para iterar sobre la instancia.
      *
      * @return {Object} Configuración a usar por el iterador.
@@ -160,6 +118,48 @@ export default class jfDataTypeArray extends jfDataTypeBase
 
         return _is;
     }
+
+    /**
+     * @override
+     */
+    _parseValue(value)
+    {
+        if (Array.isArray(value))
+        {
+            if (value.length)
+            {
+                const _Class     = this.constructor;
+                const _config    = _Class.defaults.config;
+                const _hasConfig = _config && typeof _config === 'object';
+                value            = value
+                    .map(
+                        value => {
+                            if (!_Class.isItem(value))
+                            {
+                                value = _Class.buildItem(value);
+                                if (value && _hasConfig)
+                                {
+                                    value.setProperties(_config);
+                                }
+                            }
+
+                            return value;
+                        }
+                    )
+                    .filter(Boolean);
+            }
+            else
+            {
+                value = [];
+            }
+        }
+        else
+        {
+            value = null;
+        }
+
+        return value;
+    };
 
     /**
      * @override

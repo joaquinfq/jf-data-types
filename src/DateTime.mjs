@@ -35,38 +35,41 @@ const customSymbols = {
 /**
  * Clase para el manejo de fechas que incluyen las horas.
  * Dependiendo del formato recibido del servidor podría usarse
- * la propiedad `parser` para definir el analizador del valor
+ * el método `_parseValue` para definir el analizador del valor
  * de entrada.
  *
  * ```
  * // Diferentes ejemplos de lo que debería retornar esta función
  * // para un formato de entrada `dd/mm/YYYY`
- * jfDataTypeDateTime.parser = function(value)
+ * class MyDateTime extends jfDataTypeDateTime
  * {
- *     const _parts = value.split('/');
+ *     _parseValue(value)
+ *     {
+ *         const _parts = value.split('/');
  *
- *     return [
- *         parseInt(_parts[2], 10),
- *         parseInt(_parts[1], 10) - 1,
- *         parseInt(_parts[0], 10),
- *     ]
- * }
- * jfDataTypeDateTime.parser = function(value)
- * {
- *     const _parts = value.split('/');
+ *         return [
+ *             parseInt(_parts[2], 10),
+ *             parseInt(_parts[1], 10) - 1,
+ *             parseInt(_parts[0], 10),
+ *         ]
+ *     }
+ *     _parseValue(value)
+ *     {
+ *         const _parts = value.split('/');
  *
- *     return new Date(
- *         parseInt(_parts[2], 10),
- *         parseInt(_parts[1], 10) - 1,
- *         parseInt(_parts[0], 10),
- *     );
- * }
- * jfDataTypeDateTime.parser = function(value)
- * {
- *     return value.split('/').reverse().join('-');
+ *         return new Date(
+ *             parseInt(_parts[2], 10),
+ *             parseInt(_parts[1], 10) - 1,
+ *             parseInt(_parts[0], 10),
+ *         );
+ *     }
+ *     _parseValue(value)
+ *     {
+ *         return value.split('/').reverse().join('-');
+ *     }
  * }
  * //
- * const _date = new jfDataTypeDateTime();
+ * const _date = new MyDateTime();
  * console.log(_date.setValue('15/01/2017'));
  * ```
  *
@@ -77,9 +80,27 @@ const customSymbols = {
 export default class jfDataTypeDateTime extends jfDataTypeBase
 {
     /**
+     * Formato por defecto para convertir la fecha en texto.
+     *
+     * @property defaultFormat
+     * @type     {String}
+     * @static
+     */
+    static defaultFormat = 'yyyy-MM-dd HH:mm:ss';
+
+    /**
+     * Formato a usar para convertir la fecha en texto.
+     * Si no se especifica se usa `defaultFormat`.
+     *
+     * @property format
+     * @type     {String}
+     */
+    format               = '';
+
+    /**
      * @override
      */
-    static parser = function(value)
+    _parseValue(value)
     {
         switch (typeof value)
         {
@@ -103,28 +124,11 @@ export default class jfDataTypeDateTime extends jfDataTypeBase
                 }
                 break;
         }
+
         return value instanceof Date
             ? value
             : null;
     };
-
-    /**
-     * Formato por defecto para convertir la fecha en texto.
-     *
-     * @property defaultFormat
-     * @type     {String}
-     * @static
-     */
-    static defaultFormat = 'yyyy-MM-dd HH:mm:ss';
-
-    /**
-     * Formato a usar para convertir la fecha en texto.
-     * Si no se especifica se usa `defaultFormat`.
-     *
-     * @property format
-     * @type     {String}
-     */
-    format               = '';
 
     /**
      * @override

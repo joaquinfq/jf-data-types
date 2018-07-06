@@ -13,7 +13,7 @@ export default class jfDataTypeBoolean extends jfDataTypeBase
     /**
      * @override
      */
-    static parser = function(value)
+    _parseValue(value)
     {
         // Si es un objeto y no tiene claves se asumirá como un valor vacío y el valor asignado será `false`.
         if (value && typeof value === 'object' && !Array.isArray(value))

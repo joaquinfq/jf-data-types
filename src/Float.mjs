@@ -13,18 +13,6 @@ import jfDataTypeBase from './Base';
 export default class jfDataTypeFloat extends jfDataTypeBase
 {
     /**
-     * @override
-     */
-    static parser = function(value)
-    {
-        const _value = parseFloat(value);
-
-        return isNaN(_value)
-            ? null
-            : _value;
-    };
-
-    /**
      * Símbolo a usar para el punto decimal.
      *
      * @property decimal
@@ -47,6 +35,18 @@ export default class jfDataTypeFloat extends jfDataTypeBase
      * @type     {String}
      */
     thousands            = '.';
+
+    /**
+     * @override
+     */
+    _parseValue(value)
+    {
+        const _value = parseFloat(value);
+
+        return isNaN(_value)
+            ? null
+            : _value;
+    };
 
     /**
      *
