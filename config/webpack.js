@@ -1,7 +1,6 @@
-const net      = require('node-env-tools');
-const path     = require('path');
-const UglifyJS = require('uglifyjs-webpack-plugin');
-const isPro    = net.isPro();
+const net     = require('node-env-tools');
+const path    = require('path');
+const isPro   = net.isPro();
 /**
  * Configuración base de webpack que luego puede ser extendida y/o
  * personalizada por el resto de repositorios de modelos.
@@ -25,15 +24,6 @@ const _config = {
             }
         ]
     },
-    node    : {
-        setImmediate  : false,
-        // Previene que webpack inyecte mocks para algunos módulos nativos que no tienen sentido en el navegador.
-        dgram         : 'empty',
-        fs            : 'empty',
-        net           : 'empty',
-        tls           : 'empty',
-        child_process : 'empty'
-    },
     output  : {
         filename      : isPro ? 'jfDataTypes.min.js' : 'jfDataTypes.js',
         library       : ['jf', 'dataTypes'],
@@ -45,25 +35,11 @@ const _config = {
         extensions : ['.mjs', '.js'],
         symlinks   : false
     },
-    plugins : []
+    optimization : {
+        minimize : true
+    }
 };
-if (isPro)
-{
-    _config.plugins.push(
-        new UglifyJS(
-            {
-                uglifyOptions : {
-                    compress : {
-                        warnings : false
-                    }
-                },
-                sourceMap     : false,
-                parallel      : true
-            }
-        )
-    );
-}
-else
+if (!isPro)
 {
     _config.devtool = '#inline-source-map';
 }

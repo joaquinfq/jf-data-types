@@ -138,7 +138,7 @@ describe(
             [ 'abc',     'abc'   ]
         ].forEach(
             ([ value, expected ]) => it(
-                JSON.stringify(value),
+                String(value) || "''",
                 () => expect(createSut({ value }).toString()).toBe(expected)
             )
         );
