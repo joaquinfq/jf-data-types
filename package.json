@@ -1,5 +1,5 @@
 {
-    "version": "1.5.0",
+    "version": "1.5.1",
     "author": "Joaquín Fernández",
     "name": "jf-data-types",
     "description": "Base classes for handling data types using OOP.",
@@ -16,6 +16,7 @@
     "homepage": "http://www.joaquinfernandez.net",
     "license": "MIT",
     "main": "build/jfDataTypes.js",
+    "module": "src/index.mjs",
     "repository": {
         "type": "git",
         "url": "https://github.com/joaquinfq/jfDataTypes"
@@ -25,13 +26,14 @@
         "jf-factory": "^1.0.0"
     },
     "devDependencies": {
-        "babel-core": "^6.26.3",
-        "babel-loader": "^7.1.5",
-        "babel-plugin-transform-class-properties": "^6.24.1",
-        "babel-plugin-transform-runtime": "^6.23.0",
-        "babel-preset-env": "^1.7.0",
-        "babel-preset-minify": "^0.4.3",
-        "babel-preset-stage-2": "^6.24.1",
+        "@babel/core": "^7.0.0-beta.53",
+        "@babel/plugin-proposal-class-properties": "^7.0.0-beta.53",
+        "@babel/plugin-transform-modules-commonjs": "^7.0.0-beta.53",
+        "@babel/plugin-transform-runtime": "^7.0.0-beta.53",
+        "@babel/preset-env": "^7.0.0-beta.53",
+        "@babel/preset-stage-2": "^7.0.0-beta.53",
+        "@babel/runtime": "^7.0.0-beta.53",
+        "babel-loader": "^8.0.0-beta.4",
         "build-index": "^0.2.2",
         "jest": "^23.4.0",
         "node-env-tools": "^1.0.1",
@@ -39,8 +41,8 @@
         "webpack-cli": "^3.0.8"
     },
     "scripts": {
-        "build": "webpack --config config/webpack.js --mode=development",
-        "dist": "NODE_ENV=production webpack --config config/webpack.js --mode=production",
+        "build": "webpack --config config/webpack.js && node tests/utils/bundle.js build/jfDataTypes.js",
+        "dist": "NODE_ENV=production webpack --config config/webpack.js && node tests/utils/bundle.js build/jfDataTypes.min.js",
         "test": "NODE_ENV=testing jest --coverage --config config/jest.js",
         "watch": "webpack --watch --config config/webpack.js"
     }

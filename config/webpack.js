@@ -4,39 +4,39 @@ const isPro   = net.isPro();
 /**
  * Configuración base de webpack que luego puede ser extendida y/o
  * personalizada por el resto de repositorios de modelos.
+ *
+ * @type {object}
  */
 const _config = {
-    entry   : {
-        app : './src/index.mjs'
-    },
-    module  : {
+    entry        : './src/index.mjs',
+    mode         : isPro ? 'production' : 'development',
+    module       : {
         rules : [
             {
+                loader  : 'babel-loader',
                 test    : /\.m?js$/,
                 exclude : /node_modules\/(?!jf-)/,
+                type    : 'javascript/auto',
                 include : [
-                    path.resolve(__dirname, '..', 'src'),
+                    path.join(__dirname, '..', 'src'),
                     path.dirname(require.resolve('jf-factory'))
-                ],
-                use     : {
-                    loader : 'babel-loader'
-                }
+                ]
             }
         ]
     },
-    output  : {
+    optimization : {
+        minimize : isPro
+    },
+    output       : {
         filename      : isPro ? 'jfDataTypes.min.js' : 'jfDataTypes.js',
         library       : ['jf', 'dataTypes'],
         libraryTarget : 'umd',
-        path          : path.resolve(__dirname, '..', 'build'),
+        path          : path.join(__dirname, '..', 'build'),
         pathinfo      : true
     },
-    resolve : {
+    resolve      : {
         extensions : ['.mjs', '.js'],
         symlinks   : false
-    },
-    optimization : {
-        minimize : true
     }
 };
 if (!isPro)

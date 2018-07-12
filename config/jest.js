@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
     collectCoverageFrom        : [
         'src/**/*.{js,mjs}',
@@ -25,14 +27,14 @@ module.exports = {
         '^@/(.*)$' : '<rootDir>/src/$1',
         '^#/(.*)$' : '<rootDir>/tests/$1',
     },
-    rootDir                    : require('path').resolve(__dirname, '..'),
+    rootDir                    : path.join(__dirname, '..'),
     roots                      : [
         '<rootDir>/src',
         '<rootDir>/tests'
     ],
     testRegex                  : '/tests/unit/.+.m?js$',
     transform                  : {
-        '\\.m?js$' : 'babel-jest'
+        '\\.m?js$' : path.join(__dirname, '..', 'config', 'jest', 'babel.js'),
     },
     transformIgnorePatterns    : [
         'node_modules/(?!jf-)'
