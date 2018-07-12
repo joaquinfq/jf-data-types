@@ -95,6 +95,15 @@ describe(
     }
 );
 describe(
+    'jfDataTypeBase - pad',
+    () => {
+        expect(jfDataTypeBase.pad(1.234)).toBe('01');
+        expect(jfDataTypeBase.pad(11.234)).toBe('11');
+        expect(jfDataTypeBase.pad(111.234)).toBe('111');
+        expect(jfDataTypeBase.pad(11.234, 3)).toBe('011');
+    }
+);
+describe(
     'jfDataTypeBase - setProperties',
     () => {
         [

@@ -23,8 +23,9 @@ describe(
 describe(
     'jfDataTypeArray - loadDefault()',
     () => {
-        const _sut = new jfDataTypeEnum();
+        const _sut = new jfDataTypeEnum({ value : 5 });
         // No se ha asignado $allowedValues --> null
+        expect(_sut.value).toBeNull();
         _sut.value = 5;
         expect(_sut.value).toBeNull();
         _sut.loadDefault();
