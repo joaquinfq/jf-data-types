@@ -179,6 +179,19 @@ describe(
                 expect(_sut.validate()).toBe(true);
             }
         );
+        it(
+            'Excepción',
+            () => {
+                // Verifica que se devuelva el error si se lanza una excepción durante la validación.
+                const _msg       = 'Texto de mensaje del error';
+                const _sut       = createSut();
+                _sut.$validators = [ () => { throw new Error(_msg) } ];
+                _sut.value       = 'abc';
+                const _result    = _sut.validate();
+                expect(_result).toBeInstanceOf(Error);
+                expect(_result.message).toBe(_msg);
+            }
+        );
         validate('!== Function', 5, null, null);
         validate('=== Function', value => value > 5, 10, 2);
         validate('=== [ Function ]', [ value => value < 10 ], 1, 20);

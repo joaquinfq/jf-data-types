@@ -133,7 +133,7 @@ export default class jfDataTypeBase
      *
      * @method validate
      *
-     * @return {Boolean} `true` si el valor es válido.
+     * @return {Boolean|Error} `true` si el valor es válido.
      */
     validate()
     {
@@ -154,28 +154,38 @@ export default class jfDataTypeBase
                 }
                 if (_validators.length)
                 {
-                    for (const _validator of _validators)
+                    try
                     {
-                        if (typeof _validator === 'function')
+                        for (const _validator of _validators)
                         {
-                            // Si es una función se llama con un solo parámetro, el valor.
-                            _isValid = _validator(_value);
+                            if (typeof _validator === 'function')
+                            {
+                                // Si es una función se llama con un solo parámetro, el valor.
+                                _isValid = _validator(_value);
+                            }
+                            else if (_validator && typeof _validator.fn === 'function')
+                            {
+                                // Si es un objeto, se pasa como segundo parámetro el propio
+                                // objeto para permitir configurar el validador.
+                                _isValid = _validator.fn(_value, _validator);
+                            }
+                            else
+                            {
+                                // Si se especificó un validador incorrecto, devolvemos `false`.
+                                _isValid = false;
+                            }
+                            // Cualquier valor devuelto que no sea `true` se asume como inválido.
+                            if (_isValid !== true)
+                            {
+                                break;
+                            }
                         }
-                        else if (_validator && typeof _validator.fn === 'function')
-                        {
-                            // Si es un objeto, se pasa como segundo parámetro el propio
-                            // objeto para permitir configurar el validador.
-                            _isValid = _validator.fn(_value, _validator);
-                        }
-                        else
-                        {
-                            // Si se especificó un validador incorrecto, devolvemos `false`.
-                            _isValid = false;
-                        }
-                        if (!_isValid)
-                        {
-                            break;
-                        }
+                    }
+                    catch (error)
+                    {
+                        // Si un validador prefiere lanzar una excepción, se devuelve dicha excepción.
+                        // Esto permite asignar un valor en la propiedad `message` para explicar el error.
+                        _isValid = error;
                     }
                 }
                 else
