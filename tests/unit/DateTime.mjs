@@ -19,7 +19,7 @@ describe(
             const _value = new Date(parseInt(_number, 10));
             const _date  = helpers.formatDate(_value);
             const _time  = helpers.formatTime(_value);
-            _tests.push([ 'DateTime', _value.getTime(), _value, `${_date}T${_time}`, `${_date} ${_time}` ]);
+            _tests.push([ 'DateTime', _value.getTime(), _value, `${_date} ${_time}`, `${_date} ${_time}` ]);
         }
         helpers.testAll(jfDataTypeDateTime, _tests, { defaultFormat : 'yyyy-MM-dd HH:mm:ss' }, { format : '' });
         helpers.testInvalid(jfDataTypeDateTime, [ -1, -1000, -0.001 ])
@@ -90,5 +90,8 @@ describe(
             _sut.format  = _format;
             expect(_sut.toString()).toBe(_values[_format]);
         }
+        // Símbolos que deben ponerse tal cual al no estár presentes en el mapa.
+        _sut.format  = 'abc';
+        expect(_sut.toString()).toBe('abc');
     }
 );

@@ -24,7 +24,7 @@ export default class jfDataTypeDate extends jfDataTypeDateTime
 
         return _value === null
             ? super.toJSON()
-            : this.constructor.formatDate(_value, 'yyyy-MM-dd');
+            : this.constructor.formatDate(_value, this.constructor.defaultFormat);
     }
 }
 //------------------------------------------------------------------------------
