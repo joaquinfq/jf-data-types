@@ -139,7 +139,7 @@ export default class jfDataTypeDateTime extends jfDataTypeBase
 
         return _value === null
             ? super.toJSON()
-            : this.constructor.formatDate(_value, this.constructor.defaultFormat);
+            : this.constructor.formatDate(_value, this.format || this.constructor.defaultFormat);
     }
 
     /**

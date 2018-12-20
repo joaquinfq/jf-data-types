@@ -38,3 +38,40 @@ describe(
         helpers.testAll(jfDataTypeDate, _tests, { defaultFormat : 'yyyy-MM-dd' });
     }
 );
+describe(
+    'jfDataTypeDateTime - toJSON',
+    () =>
+    {
+        it(
+            'Prioridad de format sobre defaultFormat',
+            () =>
+            {
+                const _time = Date.now();
+                const _sut  = new jfDataTypeDate();
+                const _date = new Date(_time);
+                _sut.format = 'd::M::y';
+                _sut.value  = new Date(_time);
+                expect(_sut.toJSON()).toBe(
+                    [
+                        _date.getDate(),
+                        _date.getMonth() + 1,
+                        _date.getFullYear()
+                    ].join('::')
+                );
+            }
+        );
+        it(
+            'Uso de defaultFormat si no hay format',
+            () =>
+            {
+                const _time = Date.now();
+                const _sut  = new jfDataTypeDate();
+                const _date = new Date(_time);
+                _sut.format = '';
+                _sut.value  = new Date(_time);
+                _date.setTime(_date.getTime() - _date.getTimezoneOffset() * 60 * 1000);
+                expect(_sut.toJSON()).toBe(_date.toISOString().substr(0, 10).replace('T', ' '));
+            }
+        );
+    }
+);
