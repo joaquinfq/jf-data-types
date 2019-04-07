@@ -13,6 +13,22 @@ class jfDataTypeString extends jfDataTypeBase
     /**
      * @override
      */
+    static get KEY()
+    {
+        return 'String';
+    }
+
+    /**
+     * @override
+     */
+    static get NAME()
+    {
+        return 'jf.dataType.String';
+    }
+
+    /**
+     * @override
+     */
     _parseValue(value)
     {
         return value === null || value === undefined
@@ -33,5 +49,5 @@ class jfDataTypeString extends jfDataTypeBase
     }
 }
 //------------------------------------------------------------------------------
-jfDataTypeBase.register('String', jfDataTypeString);
+jfDataTypeBase.register(jfDataTypeString.KEY, jfDataTypeString);
 module.exports = jfDataTypeString;

@@ -47,8 +47,8 @@ module.exports = class jfDataTypeBaseTest extends jfDataTypeTestBase
      */
     testConstructor()
     {
-        this._testClass('Base', null, null,  null,  '');
-        this._testInvalid(jfDataTypeBase, [ null ]);
+        this._testClass('Base', null, null, null, '');
+        this._testInvalid(jfDataTypeBase, [null]);
     }
 
     /**
@@ -58,7 +58,10 @@ module.exports = class jfDataTypeBaseTest extends jfDataTypeTestBase
     {
         this._testDefinition(
             jfDataTypeBase,
-            null,
+            {
+                KEY  : 'Base',
+                NAME : 'jf.dataType.Base'
+            },
             {
                 $nullable   : true,
                 $validators : null,
@@ -120,10 +123,9 @@ module.exports = class jfDataTypeBaseTest extends jfDataTypeTestBase
     {
         const _name = 'Base::testStaticCreate';
         const _data = { a : 1 };
-        let _calls = 0;
+        let _calls  = 0;
         let _values;
         let _value;
-
         const _Class = class
         {
             set value(value)
@@ -182,8 +184,10 @@ module.exports = class jfDataTypeBaseTest extends jfDataTypeTestBase
      */
     testStaticRegister()
     {
-        const _name = Date.now();
-        const _Class = class {};
+        const _name  = Date.now();
+        const _Class = class
+        {
+        };
         jfDataTypeBase.register(_name, _Class);
         this.assertTrue(factory.get(_name) === _Class);
         factory.unregister(_name);

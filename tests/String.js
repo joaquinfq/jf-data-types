@@ -37,6 +37,21 @@ module.exports = class jfDataTypeStringTest extends jfDataTypeTestBase
     }
 
     /**
+     * Comprueba la definición de la clase.
+     */
+    testDefinition()
+    {
+        this._testDefinition(
+            jfDataTypeString,
+            {
+                KEY  : 'String',
+                NAME : 'jf.dataType.String'
+            },
+            null
+        );
+    }
+
+    /**
      * Comprueba la herencia de la clase.
      */
     testInheritance()

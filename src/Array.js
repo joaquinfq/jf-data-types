@@ -24,6 +24,25 @@ class jfDataTypeArray extends jfDataTypeBase
         };
     };
 
+    /**
+     * @override
+     */
+    static get KEY()
+    {
+        return 'Array';
+    }
+
+    /**
+     * @override
+     */
+    static get NAME()
+    {
+        return 'jf.dataType.Array';
+    }
+
+    /**
+     * @override
+     */
     constructor(config)
     {
         super();
@@ -182,5 +201,5 @@ class jfDataTypeArray extends jfDataTypeBase
 }
 
 //------------------------------------------------------------------------------
-jfDataTypeBase.register('Array', jfDataTypeArray);
+jfDataTypeBase.register(jfDataTypeArray.KEY, jfDataTypeArray);
 module.exports = jfDataTypeArray;

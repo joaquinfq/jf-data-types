@@ -59,6 +59,21 @@ module.exports = class jfDataTypeBooleanTest extends jfDataTypeTestBase
     }
 
     /**
+     * Comprueba la definición de la clase.
+     */
+    testDefinition()
+    {
+        this._testDefinition(
+            jfDataTypeBoolean,
+            {
+                KEY  : 'Boolean',
+                NAME : 'jf.dataType.Boolean'
+            },
+            null
+        );
+    }
+
+    /**
      * Comprueba la herencia de la clase.
      */
     testInheritance()

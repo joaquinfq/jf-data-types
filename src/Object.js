@@ -13,6 +13,22 @@ class jfDataTypeObject extends jfDataTypeBase
     /**
      * @override
      */
+    static get KEY()
+    {
+        return 'Object';
+    }
+
+    /**
+     * @override
+     */
+    static get NAME()
+    {
+        return 'jf.dataType.Object';
+    }
+
+    /**
+     * @override
+     */
     constructor(config)
     {
         super();
@@ -154,6 +170,7 @@ class jfDataTypeObject extends jfDataTypeBase
         this.setValue(values);
     }
 }
+
 //------------------------------------------------------------------------------
-jfDataTypeBase.register('Object', jfDataTypeObject);
+jfDataTypeBase.register(jfDataTypeObject.KEY, jfDataTypeObject);
 module.exports = jfDataTypeObject;

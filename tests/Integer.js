@@ -31,7 +31,10 @@ module.exports = class jfDataTypeIntegerTest extends jfDataTypeTestBase
     {
         this._testDefinition(
             jfDataTypeInteger,
-            null,
+            {
+                KEY  : 'Integer',
+                NAME : 'jf.dataType.Integer'
+            },
             {
                 precision : 0
             }

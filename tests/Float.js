@@ -39,7 +39,10 @@ module.exports = class jfDataTypeFloatTest extends jfDataTypeTestBase
     {
         this._testDefinition(
             jfDataTypeFloat,
-            null,
+            {
+                KEY  : 'Float',
+                NAME : 'jf.dataType.Float'
+            },
             {
                 decimal   : ',',
                 precision : 2,

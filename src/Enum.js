@@ -13,6 +13,22 @@ class jfDataTypeEnum extends jfDataTypeBase
     /**
      * @override
      */
+    static get KEY()
+    {
+        return 'Enum';
+    }
+
+    /**
+     * @override
+     */
+    static get NAME()
+    {
+        return 'jf.dataType.Enum';
+    }
+
+    /**
+     * @override
+     */
     constructor(config)
     {
         super();
@@ -60,5 +76,5 @@ class jfDataTypeEnum extends jfDataTypeBase
 }
 
 //------------------------------------------------------------------------------
-jfDataTypeBase.register('Enum', jfDataTypeEnum);
+jfDataTypeBase.register(jfDataTypeEnum.KEY, jfDataTypeEnum);
 module.exports = jfDataTypeEnum;

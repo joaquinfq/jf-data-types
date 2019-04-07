@@ -17,7 +17,24 @@ class jfDataTypeDate extends jfDataTypeDateTime
     {
         return 'yyyy-MM-dd';
     }
+
+    /**
+     * @override
+     */
+    static get KEY()
+    {
+        return 'Date';
+    }
+
+    /**
+     * @override
+     */
+    static get NAME()
+    {
+        return 'jf.dataType.Date';
+    }
 }
+
 //------------------------------------------------------------------------------
-jfDataTypeDateTime.register('Date', jfDataTypeDate);
+jfDataTypeDateTime.register(jfDataTypeDate.KEY, jfDataTypeDate);
 module.exports = jfDataTypeDate;

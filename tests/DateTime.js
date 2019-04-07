@@ -50,7 +50,11 @@ module.exports = class jfDataTypeDateTimeTest extends jfDataTypeTestBase
     {
         this._testDefinition(
             jfDataTypeDateTime,
-            null,
+            {
+                defaultFormat : 'yyyy-MM-ddTHH:mm:ss',
+                KEY           : 'DateTime',
+                NAME          : 'jf.dataType.DateTime'
+            },
             {
                 format : ''
             }

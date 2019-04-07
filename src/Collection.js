@@ -15,6 +15,22 @@ const jfDataTypeBase = require('./Base');
 class jfDataTypeCollection extends jfDataTypeArray
 {
     /**
+     * @override
+     */
+    static get KEY()
+    {
+        return 'Collection';
+    }
+
+    /**
+     * @override
+     */
+    static get NAME()
+    {
+        return 'jf.dataType.Collection';
+    }
+
+    /**
      * Compara dos elementos para realizar la ordenación de la colección.
      *
      * @param {*} item1 Elemento 1 a comparar.
@@ -217,5 +233,5 @@ class jfDataTypeCollection extends jfDataTypeArray
 }
 
 //------------------------------------------------------------------------------
-jfDataTypeArray.register('Collection', jfDataTypeCollection);
+jfDataTypeArray.register(jfDataTypeCollection.KEY, jfDataTypeCollection);
 module.exports = jfDataTypeCollection;

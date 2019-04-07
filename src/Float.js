@@ -15,6 +15,22 @@ class jfDataTypeFloat extends jfDataTypeBase
     /**
      * @override
      */
+    static get KEY()
+    {
+        return 'Float';
+    }
+
+    /**
+     * @override
+     */
+    static get NAME()
+    {
+        return 'jf.dataType.Float';
+    }
+
+    /**
+     * @override
+     */
     constructor(config)
     {
         super();
@@ -70,5 +86,5 @@ class jfDataTypeFloat extends jfDataTypeBase
 }
 
 //------------------------------------------------------------------------------
-jfDataTypeBase.register('Float', jfDataTypeFloat);
+jfDataTypeBase.register(jfDataTypeFloat.KEY, jfDataTypeFloat);
 module.exports = jfDataTypeFloat;

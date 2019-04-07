@@ -13,6 +13,22 @@ class jfDataTypeInteger extends jfDataTypeFloat
     /**
      * @override
      */
+    static get KEY()
+    {
+        return 'Integer';
+    }
+
+    /**
+     * @override
+     */
+    static get NAME()
+    {
+        return 'jf.dataType.Integer';
+    }
+
+    /**
+     * @override
+     */
     constructor(config)
     {
         super(
@@ -39,5 +55,5 @@ class jfDataTypeInteger extends jfDataTypeFloat
 }
 
 //------------------------------------------------------------------------------
-jfDataTypeFloat.register('Integer', jfDataTypeInteger);
+jfDataTypeFloat.register(jfDataTypeInteger.KEY, jfDataTypeInteger);
 module.exports = jfDataTypeInteger;

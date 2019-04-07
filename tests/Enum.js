@@ -30,7 +30,10 @@ module.exports = class jfDataTypeEnumTest extends jfDataTypeTestBase
     {
         this._testDefinition(
             jfDataTypeEnum,
-            null,
+            {
+                KEY  : 'Enum',
+                NAME : 'jf.dataType.Enum'
+            },
             {
                 $allowedValues : [],
                 $defValue      : null

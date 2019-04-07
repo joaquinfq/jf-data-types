@@ -38,7 +38,9 @@ module.exports = class jfDataTypeTimeTest extends jfDataTypeTestBase
         this._testDefinition(
             jfDataTypeTime,
             {
-                defaultFormat : 'HH:mm'
+                defaultFormat : 'HH:mm',
+                KEY           : 'Time',
+                NAME          : 'jf.dataType.Time'
             }
         );
     }

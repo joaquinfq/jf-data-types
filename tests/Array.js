@@ -30,8 +30,8 @@ module.exports = class jfDataTypeArrayTest extends jfDataTypeTestBase
         //------------------------------------------------------------------------------
         // Iteración con una función existente
         //------------------------------------------------------------------------------
-        let _count    = 0;
-        let _result   = _sut.call(
+        let _count  = 0;
+        let _result = _sut.call(
             'map',
             (item, index) =>
             {
@@ -72,7 +72,9 @@ module.exports = class jfDataTypeArrayTest extends jfDataTypeTestBase
                 defaults : {
                     config : {},
                     type   : 'String'
-                }
+                },
+                KEY      : 'Array',
+                NAME     : 'jf.dataType.Array'
             },
             null
         );
@@ -244,7 +246,7 @@ module.exports = class jfDataTypeArrayTest extends jfDataTypeTestBase
         //------------------------------------------------------------------------------
         // Escalares
         //------------------------------------------------------------------------------
-        let _sut      = new jfDataTypeArray([]);
+        let _sut = new jfDataTypeArray([]);
         this._assert('', _sut.valueOf(), []);
         _sut.$value = [..._values];
         this._assert('', _sut.valueOf(), _values);

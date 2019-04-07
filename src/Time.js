@@ -21,6 +21,22 @@ class jfDataTypeTime extends jfDataTypeDateTime
     /**
      * @override
      */
+    static get KEY()
+    {
+        return 'Time';
+    }
+
+    /**
+     * @override
+     */
+    static get NAME()
+    {
+        return 'jf.dataType.Time';
+    }
+
+    /**
+     * @override
+     */
     toJSON()
     {
         const _value = this.value;
@@ -30,6 +46,7 @@ class jfDataTypeTime extends jfDataTypeDateTime
             : this.constructor.formatDate(_value, 'HH:mm:ss');
     }
 }
+
 //------------------------------------------------------------------------------
-jfDataTypeDateTime.register('Time', jfDataTypeTime);
+jfDataTypeDateTime.register(jfDataTypeTime.KEY, jfDataTypeTime);
 module.exports = jfDataTypeTime;

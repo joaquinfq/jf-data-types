@@ -89,6 +89,25 @@ class jfDataTypeDateTime extends jfDataTypeBase
         return 'yyyy-MM-ddTHH:mm:ss';
     }
 
+    /**
+     * @override
+     */
+    static get KEY()
+    {
+        return 'DateTime';
+    }
+
+    /**
+     * @override
+     */
+    static get NAME()
+    {
+        return 'jf.dataType.DateTime';
+    }
+
+    /**
+     * @override
+     */
     constructor(config)
     {
         super();
@@ -196,5 +215,5 @@ class jfDataTypeDateTime extends jfDataTypeBase
     }
 }
 //------------------------------------------------------------------------------
-jfDataTypeBase.register('DateTime', jfDataTypeDateTime);
+jfDataTypeBase.register(jfDataTypeDateTime.KEY, jfDataTypeDateTime);
 module.exports = jfDataTypeDateTime;

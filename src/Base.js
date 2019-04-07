@@ -1,5 +1,6 @@
 const jfFactory    = require('@jf/factory');
 const jfObject     = require('@jf/object');
+
 /**
  * Factoría para los tipos de datos.
  *
@@ -7,6 +8,7 @@ const jfObject     = require('@jf/object');
  */
 const factory      = jfFactory.i('@jf/data-types');
 factory.initMethod = 'setProperties';
+
 /**
  * Clase que representa un campo de una tabla o respuesta del servidor.
  *
@@ -17,6 +19,28 @@ factory.initMethod = 'setProperties';
  */
 class jfDataTypeBase extends jfObject
 {
+    /**
+     * Devuelve el nombre con el que la clase se registra en la factoría.
+     *
+     * @property KEY
+     * @type     {string}
+     */
+    static get KEY()
+    {
+        return 'Base';
+    }
+
+    /**
+     * Nombre de la clase.
+     *
+     * @property KEY
+     * @type     {string}
+     */
+    static get NAME()
+    {
+        return 'jf.dataType.Base';
+    }
+
     /**
      * Devuelve el valor de la instancia.
      */
@@ -267,7 +291,8 @@ class jfDataTypeBase extends jfObject
         return _is;
     }
 }
+
 //------------------------------------------------------------------------------
 factory.attach(jfDataTypeBase, ['factory', 'register']);
-jfDataTypeBase.register('Base', jfDataTypeBase);
+jfDataTypeBase.register(jfDataTypeBase.KEY, jfDataTypeBase);
 module.exports = jfDataTypeBase;

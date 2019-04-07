@@ -180,7 +180,10 @@ module.exports = class jfDataTypeObjectTest extends jfDataTypeTestBase
     {
         this._testDefinition(
             jfDataTypeObject,
-            null,
+            {
+                KEY  : 'Object',
+                NAME : 'jf.dataType.Object'
+            },
             {
                 $propertyMap   : null,
                 $propertyTypes : null,

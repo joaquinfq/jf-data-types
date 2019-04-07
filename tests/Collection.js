@@ -39,12 +39,12 @@ class CollectionTest extends jfDataTypeCollection
 }
 
 const values      = [
-    { any: 0.0, name : 'a', index : 1 },
-    { any: 100, name : 'b', index : 2 },
-    { any: 'x', name : 'c', index : 3 },
-    { any: 1.0, name : 'a', index : 4 },
-    { any: -20, name : 'b', index : 5 },
-    { any: 'y', name : 'c', index : 6 }
+    { any : 0.0, name : 'a', index : 1 },
+    { any : 100, name : 'b', index : 2 },
+    { any : 'x', name : 'c', index : 3 },
+    { any : 1.0, name : 'a', index : 4 },
+    { any : -20, name : 'b', index : 5 },
+    { any : 'y', name : 'c', index : 6 }
 ];
 const singleValue = {
     any   : 0.0,
@@ -108,7 +108,7 @@ module.exports = class jfDataTypeCollectionTest extends jfDataTypeTestBase
         _sut.value = null;
         this.assertNull(_sut.raw());
         _sut.add(singleValue);
-        this._assert('', _sut.value, [ singleValue ]);
+        this._assert('', _sut.value, [singleValue]);
     }
 
     /**
@@ -120,9 +120,9 @@ module.exports = class jfDataTypeCollectionTest extends jfDataTypeTestBase
         _sut.value = values;
         this._assert('', _sut.value, values);
         _sut.add(singleValue, 'name', false);
-        this._assert('', _sut.value, [ ...values, singleValue ]);
+        this._assert('', _sut.value, [...values, singleValue]);
         _sut.add(singleValue, 'name');
-        this._assert('', _sut.value, [ ...values, singleValue, singleValue ]);
+        this._assert('', _sut.value, [...values, singleValue, singleValue]);
     }
 
     /**
@@ -134,9 +134,9 @@ module.exports = class jfDataTypeCollectionTest extends jfDataTypeTestBase
         _sut.value = values;
         this._assert('', _sut.value, values);
         _sut.add(singleValue, 'name', true);
-        this._assert('', _sut.value, [ ...values, singleValue ]);
+        this._assert('', _sut.value, [...values, singleValue]);
         _sut.add(singleValue, 'name', true);
-        this._assert('', _sut.value, [ ...values, singleValue ]);
+        this._assert('', _sut.value, [...values, singleValue]);
     }
 
     /**
@@ -165,6 +165,21 @@ module.exports = class jfDataTypeCollectionTest extends jfDataTypeTestBase
                 this.assertTrue(raw instanceof CollectionItem);
                 this._assert('', raw.valueOf(), values[index]);
             }
+        );
+    }
+
+    /**
+     * Comprueba la definición de la clase.
+     */
+    testDefinition()
+    {
+        this._testDefinition(
+            jfDataTypeCollection,
+            {
+                KEY  : 'Collection',
+                NAME : 'jf.dataType.Collection'
+            },
+            null
         );
     }
 
@@ -286,7 +301,7 @@ module.exports = class jfDataTypeCollectionTest extends jfDataTypeTestBase
         this._assert('', _sut.value, values);
         _sut.removeItem();
         this._assert('', _sut.value, values);
-        const _item = _sut.raw()[1];
+        const _item  = _sut.raw()[1];
         const _index = _item.toJSON().index;
         _sut.removeItem(_item);
         this._assert('', _sut.value, values.filter(v => v.index !== _index));
@@ -341,10 +356,10 @@ module.exports = class jfDataTypeCollectionTest extends jfDataTypeTestBase
      */
     ['testSortBy - sortBy(key, order, cmp) - Con valores']()
     {
-        const _key = 'index';
-        const _sut = this.sut;
+        const _key    = 'index';
+        const _sut    = this.sut;
         const _sorter = (a, b) => String(a.valueOf()).localeCompare(String(b.valueOf()));
-        _sut.value = values;
+        _sut.value    = values;
         _sut.sortBy(_key, 'ASC', _sorter);
         this._assert('', _sut.value, [...values].sort((v1, v2) => _sorter(v1[_key], v2[_key])));
         values.sort((v1, v2) => _sorter(v2[_key], v1[_key]));

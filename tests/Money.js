@@ -47,7 +47,9 @@ module.exports = class jfDataTypeMoneyTest extends jfDataTypeTestBase
         this._testDefinition(
             jfDataTypeMoney,
             {
+                KEY  : 'Money',
                 LEFT  : 'left',
+                NAME : 'jf.dataType.Money',
                 RIGHT : 'right'
             },
             {

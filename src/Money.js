@@ -11,6 +11,14 @@ const jfDataTypeFloat = require('./Float');
 class jfDataTypeMoney extends jfDataTypeFloat
 {
     /**
+     * @override
+     */
+    static get KEY()
+    {
+        return 'Money';
+    }
+
+    /**
      * Constante para indicar que el símbolo monetario debe ir
      * a la izquierda de la cantidad numérica.
      *
@@ -20,6 +28,14 @@ class jfDataTypeMoney extends jfDataTypeFloat
     static get LEFT()
     {
         return 'left';
+    }
+
+    /**
+     * @override
+     */
+    static get NAME()
+    {
+        return 'jf.dataType.Money';
     }
 
     /**
@@ -81,5 +97,5 @@ class jfDataTypeMoney extends jfDataTypeFloat
 }
 
 //------------------------------------------------------------------------------
-jfDataTypeFloat.register('Money', jfDataTypeMoney);
+jfDataTypeFloat.register(jfDataTypeMoney.KEY, jfDataTypeMoney);
 module.exports = jfDataTypeMoney;

@@ -12,6 +12,22 @@ class jfDataTypeBoolean extends jfDataTypeBase
     /**
      * @override
      */
+    static get KEY()
+    {
+        return 'Boolean';
+    }
+
+    /**
+     * @override
+     */
+    static get NAME()
+    {
+        return 'jf.dataType.Boolean';
+    }
+
+    /**
+     * @override
+     */
     _parseValue(value)
     {
         // Si es un objeto y no tiene claves se asumirá como un valor vacío y el valor asignado será `false`.
@@ -40,5 +56,5 @@ class jfDataTypeBoolean extends jfDataTypeBase
     }
 }
 //------------------------------------------------------------------------------
-jfDataTypeBase.register('Boolean', jfDataTypeBoolean);
+jfDataTypeBase.register(jfDataTypeBoolean.KEY, jfDataTypeBoolean);
 module.exports = jfDataTypeBoolean;
