@@ -38,7 +38,25 @@ class jfDataTypeItem extends jfDataTypeObject
     }
 
     /**
+     * Relaciones que otros elementos tienen con éste y la propiedad que los relaciona.
+     * Es decir, aquellos elementos para los cuales la clase actual es una dependencia.
+     *
+     * El objeto devuelvo tiene:
+     * - Cada clave corresponde con el nombre registrado en la factoría de otro jf.dataType.Item.
+     * - El valor de cada clave es la propiedad que tienen común ambos jf.dataType.Item.
+     *
+     *
+     * @property RELATED
+     * @type     {object}
+     */
+    static get RELATED()
+    {
+        return {};
+    }
+
+    /**
      * Relaciones que tiene este elemento con otros y la propiedad que los relaciona.
+     * Es decir, aquellos elementos de los que depende la clase actual.
      *
      * El objeto devuelvo tiene:
      * - Cada clave corresponde con el nombre registrado en la factoría de otro jf.dataType.Item.

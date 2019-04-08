@@ -25,6 +25,7 @@ module.exports = class jfDataTypeItemTest extends jfDataTypeTestBase
                 COLLECTION : 'Collection',
                 KEY        : 'Item',
                 NAME       : 'jf.dataType.Item',
+                RELATED    : {},
                 RELATIONS  : {}
             },
             null
