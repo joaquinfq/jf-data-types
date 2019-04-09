@@ -30,11 +30,9 @@ class CollectionItem extends jfDataTypeObject
  */
 class CollectionTest extends jfDataTypeCollection
 {
-    static get defaults()
+    static get ITEM()
     {
-        return {
-            type : 'CollectionItem'
-        };
+        return 'CollectionItem';
     }
 }
 

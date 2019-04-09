@@ -11,17 +11,6 @@ const jfDataTypeObject = require('./Object');
 class jfDataTypeItem extends jfDataTypeObject
 {
     /**
-     * Nombre de la colección que gestiona el elemento.
-     *
-     * @property COLLECTION
-     * @type     {object}
-     */
-    static get COLLECTION()
-    {
-        return 'Collection';
-    }
-
-    /**
      * @override
      */
     static get KEY()
@@ -68,6 +57,68 @@ class jfDataTypeItem extends jfDataTypeObject
     static get RELATIONS()
     {
         return {};
+    }
+
+    /**
+     * @override
+     */
+    constructor(config)
+    {
+        super();
+        /**
+         * Nombre de la colección que gestiona el elemento.
+         *
+         * @property $collection
+         * @type     {string}
+         */
+        this.$collection = '';
+        /**
+         * Listado de elementos que tienen relación el actual.
+         *
+         * @property $related
+         * @type     {jf.dataType.Item[]}
+         */
+        this.$related = [];
+        /**
+         * Listado de elementos con los que tiene relación el actual.
+         *
+         * @property $relations
+         * @type     {jf.dataType.Item[]}
+         */
+        this.$relations = [];
+        //------------------------------------------------------------------------------
+        this.setProperties(config);
+    }
+
+    /**
+     * Agrega los elementos relacionados con el actual.
+     *
+     * @param {object[]} items Instancia de elementos a analizar su relación el actual.
+     * @param {string}   type  Tipo de relación a construir (`related'  o ' relations').
+     */
+    addRelations(items, type)
+    {
+        const _Class = this.constructor;
+        if (_Class.isObject(items))
+        {
+            const _relations = _Class[type.toUpperCase()];
+            if (Object.keys(_relations).length)
+            {
+                const _property = `$${type.toLowerCase()}`;
+                Object
+                    .keys(items)
+                    .filter(type => type in _relations)
+                    .forEach(
+                        type =>
+                        {
+                            const _field = _relations[type];
+                            items[type]
+                                .filter(item => this[_field] === item[_field])
+                                .forEach(item => this[_property].push(item));
+                        }
+                    );
+            }
+        }
     }
 }
 

@@ -69,10 +69,8 @@ module.exports = class jfDataTypeArrayTest extends jfDataTypeTestBase
         this._testDefinition(
             jfDataTypeArray,
             {
-                defaults : {
-                    config : {},
-                    type   : 'String'
-                },
+                DEFAULTS : {},
+                ITEM     : 'String',
                 KEY      : 'Array',
                 NAME     : 'jf.dataType.Array'
             },
@@ -146,9 +144,9 @@ module.exports = class jfDataTypeArrayTest extends jfDataTypeTestBase
         //------------------------------------------------------------------------------
         const _Class = class extends jfDataTypeArray
         {
-            static get defaults()
+            static get ITEM()
             {
-                return {};
+                return '';
             };
         };
         this._assert('', new _Class(_values).valueOf(), []);
@@ -157,11 +155,9 @@ module.exports = class jfDataTypeArrayTest extends jfDataTypeTestBase
         //------------------------------------------------------------------------------
         const _Class2 = class extends jfDataTypeArray
         {
-            static get defaults()
+            static get ITEM()
             {
-                return {
-                    type : 'UnregisteredType'
-                };
+                return 'UnregisteredType';
             };
         };
         this._assert('', new _Class2(_values).valueOf(), []);
@@ -178,7 +174,7 @@ module.exports = class jfDataTypeArrayTest extends jfDataTypeTestBase
         //------------------------------------------------------------------------------
         // Mismo tipo no lo construye y devuelve null
         //------------------------------------------------------------------------------
-        this.assertNull(jfDataTypeArray.buildItem(jfDataTypeArray.create(jfDataTypeArray.defaults.type)));
+        this.assertNull(jfDataTypeArray.buildItem(jfDataTypeArray.create(jfDataTypeArray.ITEM)));
         //------------------------------------------------------------------------------
         // Diferente tipo lo construye
         //------------------------------------------------------------------------------
@@ -203,9 +199,9 @@ module.exports = class jfDataTypeArrayTest extends jfDataTypeTestBase
         //------------------------------------------------------------------------------
         let _Class = class extends jfDataTypeArray
         {
-            static get defaults()
+            static get ITEM()
             {
-                return {};
+                return '';
             };
         };
         this.assertFalse(_Class.isItem({}));
@@ -214,11 +210,9 @@ module.exports = class jfDataTypeArrayTest extends jfDataTypeTestBase
         //------------------------------------------------------------------------------
         _Class = class extends jfDataTypeArray
         {
-            static get defaults()
+            static get ITEM()
             {
-                return {
-                    type : 'String'
-                };
+                return 'String';
             };
         };
         this.assertFalse(_Class.isItem({}));
@@ -227,11 +221,9 @@ module.exports = class jfDataTypeArrayTest extends jfDataTypeTestBase
         //------------------------------------------------------------------------------
         _Class = class extends jfDataTypeArray
         {
-            static get defaults()
+            static get ITEM()
             {
-                return {
-                    type : 'String'
-                };
+                return 'String';
             };
         };
         this.assertTrue(_Class.isItem(new jfDataTypeString()));
@@ -251,8 +243,8 @@ module.exports = class jfDataTypeArrayTest extends jfDataTypeTestBase
         _sut.$value = [..._values];
         this._assert('', _sut.valueOf(), _values);
         //------------------------------------------------------------------------------
-        // defaults.type
-        // En defaults se asigna el tipo por defecto a String.
+        // ITEM
+        // En ITEM se asigna el tipo por defecto a String.
         //------------------------------------------------------------------------------
         this._assert('', new jfDataTypeArray(_values).valueOf(), _values.map(String));
     }

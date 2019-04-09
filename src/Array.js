@@ -13,16 +13,13 @@ class jfDataTypeArray extends jfDataTypeBase
     /**
      * Valores de configuración por defecto para cada elemento del array.
      *
-     * @property defaults
+     * @property DEFAULTS
      * @type     {object}
      */
-    static get defaults()
+    static get DEFAULTS()
     {
-        return {
-            config : {},
-            type   : 'String'
-        };
-    };
+        return {};
+    }
 
     /**
      * @override
@@ -30,6 +27,15 @@ class jfDataTypeArray extends jfDataTypeBase
     static get KEY()
     {
         return 'Array';
+    }
+
+    /**
+     * Nombre del elemento que se construirá para al insertar cada
+     * elemento en el array.
+     */
+    static get ITEM()
+    {
+        return 'String';
     }
 
     /**
@@ -109,9 +115,18 @@ class jfDataTypeArray extends jfDataTypeBase
                 const _Class = this.constructor;
                 value        = value
                     .map(
-                        value => _Class.isItem(value)
-                            ? value
-                            : _Class.buildItem(value)
+                        value =>
+                        {
+                            const _model = _Class.isItem(value)
+                                ? value
+                                : _Class.buildItem(value);
+                            if (_model)
+                            {
+                                _model.$collection = this;
+                            }
+
+                            return _model;
+                        }
                     )
                     .filter(Boolean);
             }
@@ -152,11 +167,11 @@ class jfDataTypeArray extends jfDataTypeBase
         let _item = null;
         if (config && !this.isItem(config))
         {
-            const _defaults = this.defaults;
-            _item           = this.create(_defaults.type);
+            const _defaults = this.DEFAULTS;
+            _item           = this.create(this.ITEM);
             if (_item)
             {
-                _item.setProperties(_defaults.config);
+                _item.setProperties(_defaults);
                 if (config && typeof config === 'object')
                 {
                     _item.setProperties(config);
@@ -185,7 +200,7 @@ class jfDataTypeArray extends jfDataTypeBase
         let _is = false;
         if (item)
         {
-            const _type = this.defaults.type;
+            const _type = this.ITEM;
             if (_type)
             {
                 const _Class = this.factory.get(_type);
