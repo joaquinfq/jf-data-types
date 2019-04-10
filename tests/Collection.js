@@ -1,41 +1,11 @@
-require('../src/Integer');
-require('../src/String');
+const CollectionItem       = require('./_CollectionItem');
+const CollectionTest       = require('./_CollectionTest');
 const jfDataTypeArray      = require('../src/Array');
 const jfDataTypeBase       = require('../src/Base');
 const jfDataTypeCollection = require('../src/Collection');
-const jfDataTypeObject     = require('../src/Object');
 const jfDataTypeTestBase   = require('./_Base');
 
-/**
- * Elemento de la colección de prueba.
- */
-class CollectionItem extends jfDataTypeObject
-{
-    constructor(config)
-    {
-        super();
-        this.index          = '';
-        this.name           = '';
-        this.$propertyTypes = {
-            any   : '*',
-            index : 'Integer',
-            name  : 'String'
-        };
-        this.setProperties(config);
-    }
-}
-
-/**
- * Colección de prueba.
- */
-class CollectionTest extends jfDataTypeCollection
-{
-    static get ITEM()
-    {
-        return 'CollectionItem';
-    }
-}
-
+// @formatter:off
 const values      = [
     { any : 0.0, name : 'a', index : 1 },
     { any : 100, name : 'b', index : 2 },
@@ -44,13 +14,12 @@ const values      = [
     { any : -20, name : 'b', index : 5 },
     { any : 'y', name : 'c', index : 6 }
 ];
+// @formatter:on
 const singleValue = {
     any   : 0.0,
     name  : 'f',
     index : 7
 };
-jfDataTypeBase.register('CollectionTest', CollectionTest);
-jfDataTypeBase.register('CollectionItem', CollectionItem);
 // ------------------------------------------------------------------------------
 /**
  * Pruebas unitarias de la clase `jf.dataType.Collection`.
@@ -376,5 +345,17 @@ module.exports = class jfDataTypeCollectionTest extends jfDataTypeTestBase
         this._assert('', jfDataTypeCollection._cmp(50, 80), -30);
         this._assert('', jfDataTypeCollection._cmp(50, 50), 0);
         this._assert('', jfDataTypeCollection._cmp(50, 25), 25);
+    }
+
+    /**
+     * Pruebas del método estático `getForItem`.
+     */
+    testStaticGetForItem()
+    {
+        this._assert('', jfDataTypeCollection.getForItem(CollectionItem), CollectionTest);
+        this._assert('', jfDataTypeCollection.getForItem(CollectionItem.KEY), CollectionTest);
+        this.constructor.getAllTypes().forEach(
+            value => this.assertUndefined(jfDataTypeCollection.getForItem(value))
+        );
     }
 };

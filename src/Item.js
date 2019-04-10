@@ -1,4 +1,6 @@
-const jfDataTypeObject = require('./Object');
+const jfDataTypeBase       = require('./Base');
+const jfDataTypeCollection = require('./Collection');
+const jfDataTypeObject     = require('./Object');
 
 /**
  * Representa un elemento gestionado por una colección.
@@ -73,19 +75,21 @@ class jfDataTypeItem extends jfDataTypeObject
          */
         this.$collection = '';
         /**
-         * Listado de elementos que tienen relación el actual.
+         * Colecciones de elementos que tienen relación el actual.
+         * La clave es el tipo y el valor es la colección.
          *
          * @property $related
-         * @type     {jf.dataType.Item[]}
+         * @type     {object}
          */
-        this.$related = [];
+        this.$related = {};
         /**
-         * Listado de elementos con los que tiene relación el actual.
+         * Colecciones de elementos con los que tiene relación el actual.
+         * La clave es el tipo y el valor es la colección.
          *
          * @property $relations
-         * @type     {jf.dataType.Item[]}
+         * @type     {object}
          */
-        this.$relations = [];
+        this.$relations = {};
         //------------------------------------------------------------------------------
         this.setProperties(config);
     }
@@ -104,17 +108,37 @@ class jfDataTypeItem extends jfDataTypeObject
             const _relations = _Class[type.toUpperCase()];
             if (Object.keys(_relations).length)
             {
-                const _property = `$${type.toLowerCase()}`;
+                const _property = `$${ type.toLowerCase() }`;
+                const _getValue = item => item instanceof jfDataTypeBase
+                    ? item.value
+                    : item;
                 Object
                     .keys(items)
                     .filter(type => type in _relations)
                     .forEach(
                         type =>
                         {
-                            const _field = _relations[type];
-                            items[type]
-                                .filter(item => this[_field] === item[_field])
-                                .forEach(item => this[_property].push(item));
+                            const _Collection = jfDataTypeCollection.getForItem(type);
+                            if (_Collection)
+                            {
+                                const _field = _getValue(_relations[type]);
+                                const _value = _getValue(this[_field]);
+                                const _items = items[type].filter(item => _value === item[_field]);
+                                if (_items.length)
+                                {
+                                    let _collection = this[_property][type];
+                                    if (_collection)
+                                    {
+                                        _items.forEach(
+                                            item => _collection.add(item, _field, true)
+                                        );
+                                    }
+                                    else
+                                    {
+                                        this[_property][type] = new _Collection(_items);
+                                    }
+                                }
+                            }
                         }
                     );
             }

@@ -1,5 +1,5 @@
 {
-    "version": "2.2.0",
+    "version": "2.3.0",
     "author": "Joaquín Fernández",
     "name": "@jf/data-types",
     "description": "Base classes for handling data types using OOP.",
@@ -25,10 +25,11 @@
         "format-decimal": "^0.1.0"
     },
     "devDependencies": {
-        "@jf/tests": "1.0.0",
+        "@jf/tests": "^1.1.1",
         "nyc": "^13.3.0"
     },
     "scripts": {
-        "test": "nyc --reporter=text --all --include=src/** jf-tests"
+        "test": "nyc --reporter=text --all --include=src/** jf-tests",
+        "jf-test": "$NODE_DEBUG_OPTION jf-tests"
     }
 }

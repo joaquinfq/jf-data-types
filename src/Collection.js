@@ -1,5 +1,14 @@
 const jfDataTypeArray = require('./Array');
-const jfDataTypeBase = require('./Base');
+const jfDataTypeBase  = require('./Base');
+
+/**
+ * Colecciones registradas y los tipos que gestionan.
+ * La clave es la propiedad ITEM del tipo y el valor es la
+ * referencia de la colección que lo gestiona.
+ *
+ * @type {object}
+ */
+const collections = {};
 
 /**
  * Clase para el manejo de colecciones.
@@ -229,6 +238,35 @@ class jfDataTypeCollection extends jfDataTypeArray
         }
 
         return _items;
+    }
+
+    /**
+     * Devuelve la colección que gestiona el elemento.
+     *
+     * @param {string|function} item Elemento que requiere la colección.
+     *
+     * @return {jf.dataType.Collection|undefined} Referencia de la colección o `undefined` si
+     *                                            no hay colección que lo gestione.
+     */
+    static getForItem(item)
+    {
+        const _name = jfDataTypeBase.isPrototypeOf(item)
+            ? item.KEY
+            : String(item);
+
+        return collections[_name];
+    }
+
+    /**
+     * @override
+     */
+    static register(name, Class)
+    {
+        super.register(name, Class);
+        if (jfDataTypeCollection.isPrototypeOf(Class))
+        {
+            collections[Class.ITEM] = Class;
+        }
     }
 }
 
