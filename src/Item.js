@@ -29,25 +29,7 @@ class jfDataTypeItem extends jfDataTypeObject
     }
 
     /**
-     * Relaciones que otros elementos tienen con éste y la propiedad que los relaciona.
-     * Es decir, aquellos elementos para los cuales la clase actual es una dependencia.
-     *
-     * El objeto devuelvo tiene:
-     * - Cada clave corresponde con el nombre registrado en la factoría de otro jf.dataType.Item.
-     * - El valor de cada clave es la propiedad que tienen común ambos jf.dataType.Item.
-     *
-     *
-     * @property RELATED
-     * @type     {object}
-     */
-    static get RELATED()
-    {
-        return {};
-    }
-
-    /**
      * Relaciones que tiene este elemento con otros y la propiedad que los relaciona.
-     * Es decir, aquellos elementos de los que depende la clase actual.
      *
      * El objeto devuelvo tiene:
      * - Cada clave corresponde con el nombre registrado en la factoría de otro jf.dataType.Item.
@@ -75,14 +57,6 @@ class jfDataTypeItem extends jfDataTypeObject
          */
         this.$collection = '';
         /**
-         * Colecciones de elementos que tienen relación el actual.
-         * La clave es el tipo y el valor es la colección.
-         *
-         * @property $related
-         * @type     {object}
-         */
-        this.$related = {};
-        /**
          * Colecciones de elementos con los que tiene relación el actual.
          * La clave es el tipo y el valor es la colección.
          *
@@ -97,21 +71,18 @@ class jfDataTypeItem extends jfDataTypeObject
     /**
      * Agrega los elementos relacionados con el actual.
      *
-     * @param {object[]} items Instancia de elementos a analizar su relación el actual.
-     * @param {string}   type  Tipo de relación a construir (`related'  o ' relations').
+     * @param {object} items Instancia de elementos a analizar su relación con el actual.
      */
-    addRelations(items, type)
+    addRelations(items)
     {
-        const _Class = this.constructor;
-        if (_Class.isObject(items))
+        const _Class    = this.constructor;
+        const _isObject = _Class.isObject;
+        if (_isObject(items))
         {
-            const _relations = _Class[type.toUpperCase()];
+            const _relations = _Class.RELATIONS;
             if (Object.keys(_relations).length)
             {
-                const _property = `$${ type.toLowerCase() }`;
-                const _getValue = item => item instanceof jfDataTypeBase
-                    ? item.value
-                    : item;
+                const $relations = this.$relations;
                 Object
                     .keys(items)
                     .filter(type => type in _relations)
@@ -121,12 +92,14 @@ class jfDataTypeItem extends jfDataTypeObject
                             const _Collection = jfDataTypeCollection.getForItem(type);
                             if (_Collection)
                             {
-                                const _field = _getValue(_relations[type]);
-                                const _value = _getValue(this[_field]);
-                                const _items = items[type].filter(item => _value === item[_field]);
+                                const _field = _relations[type];
+                                const _value = this.getValue(_field);
+                                const _items = items[type].filter(
+                                    item => _isObject(item) && this.getValue.call(item, _field) === _value
+                                );
                                 if (_items.length)
                                 {
-                                    let _collection = this[_property][type];
+                                    let _collection = $relations[type];
                                     if (_collection)
                                     {
                                         _items.forEach(
@@ -135,7 +108,7 @@ class jfDataTypeItem extends jfDataTypeObject
                                     }
                                     else
                                     {
-                                        this[_property][type] = new _Collection(_items);
+                                        $relations[type] = new _Collection(_items);
                                     }
                                 }
                             }

@@ -193,6 +193,26 @@ module.exports = class jfDataTypeObjectTest extends jfDataTypeTestBase
     }
 
     /**
+     * Pruebas del método `getValue`.
+     */
+    testGetValue()
+    {
+        const _sut = this.sut;
+        _sut.value = config;
+        Object.keys(config).forEach(
+            property =>
+            {
+                this.assertTrue(_sut[property] instanceof jfDataTypeBase);
+                // Verificamos la devolución del valor de un jf.dataType.
+                this.assertEqual(_sut.getValue(property), config[property]);
+                // Verificamos la devolución de un valor primitivo.
+                _sut[property] = config[property];
+                this.assertEqual(_sut.getValue(property), config[property]);
+            }
+        );
+    }
+
+    /**
      * Comprueba la herencia de la clase.
      */
     testInheritance()

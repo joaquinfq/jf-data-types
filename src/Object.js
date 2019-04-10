@@ -76,6 +76,23 @@ class jfDataTypeObject extends jfDataTypeBase
     }
 
     /**
+     * Devuelve el valor de la propiedad haciendo las verificaciones de si es un
+     * modelo o un valor primitivo.
+     *
+     * @param {string} property Nombre de la propiedad a devolver.
+     *
+     * @return {*} Valor de la propiedad.
+     */
+    getValue(property)
+    {
+        const _value = this[property];
+
+        return _value instanceof jfDataTypeBase
+            ? _value.value
+            : _value;
+    }
+
+    /**
      * Mapea los valores con nombres de propiedades de la instancia.
      *
      * @param {object} values Valores a remapear.
@@ -149,12 +166,10 @@ class jfDataTypeObject extends jfDataTypeBase
                 : {};
             for (const _name of Object.keys(_propertyTpes))
             {
-                const _value = this[_name];
+                const _value = this.getValue(_name);
                 if (_value !== undefined)
                 {
-                    _values[_map[_name] || _name] = _value instanceof jfDataTypeBase
-                        ? _value.value
-                        : _value;
+                    _values[_map[_name] || _name] = _value;
                 }
             }
         }
