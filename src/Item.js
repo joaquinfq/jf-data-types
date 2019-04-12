@@ -1,4 +1,3 @@
-const jfDataTypeBase       = require('./Base');
 const jfDataTypeCollection = require('./Collection');
 const jfDataTypeObject     = require('./Object');
 

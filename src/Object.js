@@ -155,7 +155,15 @@ class jfDataTypeObject extends jfDataTypeBase
     /**
      * @override
      */
-    valueOf()
+    setProperties(values)
+    {
+        this.setValue(values);
+    }
+
+    /**
+     * @override
+     */
+    toJSON()
     {
         const _values       = {};
         const _propertyTpes = this.$propertyTypes;
@@ -166,7 +174,11 @@ class jfDataTypeObject extends jfDataTypeBase
                 : {};
             for (const _name of Object.keys(_propertyTpes))
             {
-                const _value = this.getValue(_name);
+                let _value = this[_name];
+                if (_value instanceof jfDataTypeBase)
+                {
+                    _value = _value.toJSON();
+                }
                 if (_value !== undefined)
                 {
                     _values[_map[_name] || _name] = _value;
@@ -180,9 +192,9 @@ class jfDataTypeObject extends jfDataTypeBase
     /**
      * @override
      */
-    setProperties(values)
+    valueOf()
     {
-        this.setValue(values);
+        return this.toJSON();
     }
 }
 

@@ -24,8 +24,8 @@ module.exports = class jfDataTypeTimeTest extends jfDataTypeTestBase
         for (const _number of this.generateNumbers())
         {
             const _value = new Date(parseInt(_number, 10));
-            const _time  = this.formatTime(_value);
-            this._testClass('Time', _value.getTime(), _value, _time, _time.substr(0, 5));
+            const _time  = this.formatTime(_value).substr(0, 5);
+            this._testClass('Time', _value.getTime(), _time, _time, _time);
         }
         this._testInvalid(jfDataTypeTime);
     }

@@ -33,18 +33,6 @@ class jfDataTypeTime extends jfDataTypeDateTime
     {
         return 'jf.dataType.Time';
     }
-
-    /**
-     * @override
-     */
-    toJSON()
-    {
-        const _value = this.value;
-
-        return _value === null
-            ? super.toJSON()
-            : this.constructor.formatDate(_value, 'HH:mm:ss');
-    }
 }
 
 //------------------------------------------------------------------------------

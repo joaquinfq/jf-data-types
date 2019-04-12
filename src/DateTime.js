@@ -161,11 +161,11 @@ class jfDataTypeDateTime extends jfDataTypeBase
      */
     toJSON()
     {
-        const _value = this.value;
+        const _value = this.raw();
 
         return _value === null
-            ? super.toJSON()
-            : this.constructor.formatDate(_value, this.format || this.constructor.defaultFormat);
+            ? null
+            : this.toString();
     }
 
     /**
@@ -173,10 +173,23 @@ class jfDataTypeDateTime extends jfDataTypeBase
      */
     toString()
     {
-        const _value = this.value;
+        const _value = this.raw();
+
         return _value === null
-            ? super.toString()
+            ? ''
             : this.constructor.formatDate(_value, this.format || this.constructor.defaultFormat);
+    }
+
+    /**
+     * @override
+     */
+    valueOf()
+    {
+        const _value = this.raw();
+
+        return _value === null
+            ? null
+            : this.toString();
     }
 
     /**

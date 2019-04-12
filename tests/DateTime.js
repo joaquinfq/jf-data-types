@@ -30,14 +30,13 @@ module.exports = class jfDataTypeDateTimeTest extends jfDataTypeTestBase
         const _sut   = this.sut;
         const _value = new Date();
         _sut.value   = _value.toISOString();
-        this._assert('', _sut.value.getTime(), _value.getTime());
+        this._assert('', _sut.raw().getTime(), _value.getTime());
         //
         for (const _number of this.generateNumbers())
         {
-            const _value = new Date(parseInt(_number, 10));
-            const _date  = this.formatDate(_value);
-            const _time  = this.formatTime(_value);
-            this._testClass('DateTime', _value.getTime(), _value, `${_date}T${_time}`, `${_date}T${_time}`);
+            const _value    = new Date(parseInt(_number, 10));
+            const _expected = `${ this.formatDate(_value) }T${ this.formatTime(_value) }`;
+            this._testClass('DateTime', _value.getTime(), _expected, _expected, _expected);
         }
         this._testInvalid(jfDataTypeDateTime);
         this._testInvalid(jfDataTypeDateTime, [-1, -1000, -0.001]);
@@ -118,6 +117,11 @@ module.exports = class jfDataTypeDateTimeTest extends jfDataTypeTestBase
         this._assert('', jfDataTypeDateTime.formatDate(), '', 'date = undefined, format = undefined');
         this._assert('', jfDataTypeDateTime.formatDate(null, ''), '', 'date = null, format = ""');
         this._assert('', jfDataTypeDateTime.formatDate(_date), _date.toISOString(), 'date = Date, format = undefined');
-        this._assert('', jfDataTypeDateTime.formatDate(_date, 1234), _date.toISOString(), 'date = Date, format != string');
+        this._assert(
+            '',
+            jfDataTypeDateTime.formatDate(_date, 1234),
+            _date.toISOString(),
+            'date = Date, format != string'
+        );
     }
 };

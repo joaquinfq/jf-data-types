@@ -22,9 +22,9 @@ module.exports = class jfDataTypeDateTest extends jfDataTypeTestBase
     {
         for (const _number of this.generateNumbers())
         {
-            const _value = new Date(parseInt(_number, 10));
-            const _date  = this.formatDate(_value);
-            this._testClass('Date', _value.getTime(), _value, _date, _date);
+            const _value    = new Date(parseInt(_number, 10));
+            const _expected = this.formatDate(_value);
+            this._testClass('Date', _value.getTime(), _expected, _expected, _expected);
         }
         // Verificamos que si se pasa un array, se desestructure como parámetros del constructor Date.
         const _value = new Date();
@@ -40,7 +40,7 @@ module.exports = class jfDataTypeDateTest extends jfDataTypeTestBase
                 _value.getSeconds(),
                 _value.getMilliseconds()
             ],
-            _value,
+            _date,
             _date,
             _date
         );
